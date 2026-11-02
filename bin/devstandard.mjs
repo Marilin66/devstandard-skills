@@ -63,34 +63,52 @@ async function listSkills() {
   }
 }
 
+async function installSingleSkill(skill, targetDir) {
+  const content = await getSkillContent(skill.path);
+  const destDir = path.join(targetDir, ".agents", "skills", skill.name);
+  fs.mkdirSync(destDir, { recursive: true });
+
+  const destFile = path.join(destDir, "SKILL.md");
+  fs.writeFileSync(destFile, content, "utf-8");
+  console.log(`  ✅ [${skill.domain.toUpperCase()}] ${skill.name} -> ${path.relative(process.cwd(), destFile)}`);
+}
+
 async function addSkill(skillName, targetDir = process.cwd()) {
   const registry = await loadRegistry();
-  const skill = registry.skills.find(
-    (s) => s.name.toLowerCase() === skillName.toLowerCase() || s.slug === skillName
-  );
+  const lower = skillName.toLowerCase();
 
-  if (!skill) {
-    console.error(`\n❌ Skill "${skillName}" introuvable dans le registre.`);
-    console.log("👉 Lancez `npx devstandard list` pour voir les skills disponibles.\n");
+  // Support des packs complets
+  let skillsToInstall = [];
+  if (lower === "frontend-pack" || lower === "frontend") {
+    skillsToInstall = registry.skills.filter((s) => s.domain === "frontend");
+  } else if (lower === "backend-pack" || lower === "backend") {
+    skillsToInstall = registry.skills.filter((s) => s.domain === "backend");
+  } else if (lower === "engineering-pack" || lower === "engineering") {
+    skillsToInstall = registry.skills.filter((s) => s.domain === "engineering");
+  } else if (lower === "all" || lower === "all-pack") {
+    skillsToInstall = registry.skills;
+  } else {
+    const matched = registry.skills.find(
+      (s) => s.name.toLowerCase() === lower || s.slug === skillName
+    );
+    if (matched) skillsToInstall = [matched];
+  }
+
+  if (skillsToInstall.length === 0) {
+    console.error(`\n❌ Standard ou pack "${skillName}" introuvable dans le registre.`);
+    console.log("👉 Lancez `npx devstandard list` pour voir les standards disponibles.\n");
     process.exit(1);
   }
 
-  console.log(`\n⏳ Récupération du standard [${skill.name}]...`);
+  console.log(`\n⏳ Installation de ${skillsToInstall.length} standard(s)...`);
   try {
-    const content = await getSkillContent(skill.path);
-
-    // Emplacement standard portable : <projet>/.agents/skills/<skill-name>/SKILL.md
-    const destDir = path.join(targetDir, ".agents", "skills", skill.name);
-    fs.mkdirSync(destDir, { recursive: true });
-
-    const destFile = path.join(destDir, "SKILL.md");
-    fs.writeFileSync(destFile, content, "utf-8");
-
-    console.log(`✅ Skill installé avec succès !`);
-    console.log(`📍 Emplacement : ${path.relative(process.cwd(), destFile)}`);
-    console.log(`\n💡 Votre assistant IA (Cursor, Antigravity, Claude Code, etc.) appliquera désormais automatiquement ces règles pour ce projet.\n`);
+    for (const skill of skillsToInstall) {
+      await installSingleSkill(skill, targetDir);
+    }
+    console.log(`\n🎉 Installation terminée avec succès !`);
+    console.log(`💡 Votre assistant IA (Antigravity, Cursor, Claude Code, Codex, etc.) prend désormais en compte ces standards pour ce projet.\n`);
   } catch (err) {
-    console.error(`❌ Erreur lors de l'installation :`, err.message);
+    console.error(`\n❌ Erreur lors de l'installation :`, err.message);
     process.exit(1);
   }
 }

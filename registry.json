@@ -25,6 +25,46 @@
       "tags": ["frontend", "forms", "states", "accessibility", "ux"]
     },
     {
+      "name": "accessible-components",
+      "slug": "frontend/accessible-components",
+      "title": "Composants Interactifs Accessibles",
+      "domain": "frontend",
+      "category": "components",
+      "description": "Distinction bouton/lien, modales avec piège à focus (focus-trap), menus accessibles et tableaux de données triables et paginés.",
+      "path": "skills/frontend/accessible-components/SKILL.md",
+      "tags": ["frontend", "components", "dialog", "tables", "wai-aria"]
+    },
+    {
+      "name": "accessibility-wcag",
+      "slug": "frontend/accessibility-wcag",
+      "title": "Accessibilité Numérique WCAG 2.2 AA",
+      "domain": "frontend",
+      "category": "accessibility",
+      "description": "Exigences normatives WCAG 2.2 niveau AA : contrastes, sémantique HTML, navigation clavier, alternatives textuelles et zoom 200%.",
+      "path": "skills/frontend/accessibility-wcag/SKILL.md",
+      "tags": ["frontend", "accessibility", "a11y", "wcag", "keyboard"]
+    },
+    {
+      "name": "responsive-layouts",
+      "slug": "frontend/responsive-layouts",
+      "title": "Layouts Responsifs & Mobile-First",
+      "domain": "frontend",
+      "category": "responsive",
+      "description": "Approche mobile-first stricte, cibles tactiles 44x44px, points de rupture et tolérance zéro pour le débordement horizontal.",
+      "path": "skills/frontend/responsive-layouts/SKILL.md",
+      "tags": ["frontend", "responsive", "mobile-first", "breakpoints", "layout"]
+    },
+    {
+      "name": "frontend-performance",
+      "slug": "frontend/frontend-performance",
+      "title": "Performance Frontend & Core Web Vitals",
+      "domain": "frontend",
+      "category": "performance",
+      "description": "Optimisation LCP/CLS/INP, chargement différé d'images, dimensions explicites pour éliminer le CLS et découpage de code.",
+      "path": "skills/frontend/frontend-performance/SKILL.md",
+      "tags": ["frontend", "performance", "web-vitals", "cls", "lcp", "lazy-loading"]
+    },
+    {
       "name": "server-validation",
       "slug": "backend/server-validation",
       "title": "Validation Côté Serveur & Rejet Strict",
@@ -33,6 +73,66 @@
       "description": "Validation rigoureuse des entrées côté serveur, non-confiance systématique envers le client et gestion sécurisée des erreurs.",
       "path": "skills/backend/server-validation/SKILL.md",
       "tags": ["backend", "api", "validation", "security", "fail-closed"]
+    },
+    {
+      "name": "security-iam",
+      "slug": "backend/security-iam",
+      "title": "Sécurité IAM & Contrôle d'Accès",
+      "domain": "backend",
+      "category": "identity-and-access",
+      "description": "Contrôle d'accès strict côté serveur, prévention des failles BOLA/IDOR, matrice de rôles RBAC et isolation étanche des données.",
+      "path": "skills/backend/security-iam/SKILL.md",
+      "tags": ["backend", "iam", "auth", "rbac", "security", "tenant-isolation"]
+    },
+    {
+      "name": "api-resilience",
+      "slug": "backend/api-resilience",
+      "title": "Conception d'APIs & Résilience",
+      "domain": "backend",
+      "category": "api-and-reliability",
+      "description": "Statuts HTTP sémantiques, pagination bornée, limitation de débit (rate limiting), timeouts stricts et clés d'idempotence.",
+      "path": "skills/backend/api-resilience/SKILL.md",
+      "tags": ["backend", "api", "rest", "resilience", "rate-limiting", "idempotency"]
+    },
+    {
+      "name": "database-integrity",
+      "slug": "backend/database-integrity",
+      "title": "Intégrité des Données & Base de Données",
+      "domain": "backend",
+      "category": "database-and-storage",
+      "description": "Transactions ACID, contraintes relationnelles fortes, indexation stratégique, prévention des requêtes N+1 et migrations sûres.",
+      "path": "skills/backend/database-integrity/SKILL.md",
+      "tags": ["backend", "database", "sql", "acid", "migrations", "indexes"]
+    },
+    {
+      "name": "security-hardening",
+      "slug": "backend/security-hardening",
+      "title": "Durcissement de Sécurité (OWASP Top 10)",
+      "domain": "backend",
+      "category": "security",
+      "description": "Protection contre les failles d'injection SQL, CSRF, SSRF, en-têtes HTTP de sécurité stricts (HSTS, CSP) et gestion des secrets.",
+      "path": "skills/backend/security-hardening/SKILL.md",
+      "tags": ["backend", "security", "owasp", "csp", "hsts", "hardening"]
+    },
+    {
+      "name": "observability-logging",
+      "slug": "backend/observability-logging",
+      "title": "Journalisation Structurée & Observabilité",
+      "domain": "backend",
+      "category": "observability",
+      "description": "Logs JSON structurés, corrélation universelle Request ID / Trace ID, masquage des PII et sondes de santé /health.",
+      "path": "skills/backend/observability-logging/SKILL.md",
+      "tags": ["backend", "logging", "observability", "json-logs", "healthcheck", "tracing"]
+    },
+    {
+      "name": "testing-strategy",
+      "slug": "engineering/testing-strategy",
+      "title": "Stratégie de Tests & Cas Négatifs",
+      "domain": "engineering",
+      "category": "testing",
+      "description": "Pyramide de tests, tests obligatoires de refus d'accès et d'erreurs, isolation des données de test et reproductibilité en CI.",
+      "path": "skills/engineering/testing-strategy/SKILL.md",
+      "tags": ["engineering", "testing", "unit-tests", "integration-tests", "negative-testing", "ci"]
     }
   ]
 }
