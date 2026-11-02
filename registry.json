@@ -125,6 +125,16 @@
       "tags": ["backend", "logging", "observability", "json-logs", "healthcheck", "tracing"]
     },
     {
+      "name": "infra-security-ops",
+      "slug": "backend/infra-security-ops",
+      "title": "Sécurité Système & Infrastructure DevSecOps",
+      "domain": "backend",
+      "category": "operations-and-infrastructure",
+      "description": "Durcissement système et réseau : pare-feu default-deny, isolation DB/Redis, SSH durci, reverse proxy TLS, moindre privilège DB et audits de dépendances.",
+      "path": "skills/backend/infra-security-ops/SKILL.md",
+      "tags": ["backend", "infrastructure", "devsecops", "firewall", "ssh", "tls", "backup", "supply-chain"]
+    },
+    {
       "name": "testing-strategy",
       "slug": "engineering/testing-strategy",
       "title": "Stratégie de Tests & Cas Négatifs",

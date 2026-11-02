@@ -46,6 +46,7 @@ npx github:Marilin66/devstandard-skills add api-resilience
 npx github:Marilin66/devstandard-skills add database-integrity
 npx github:Marilin66/devstandard-skills add security-hardening
 npx github:Marilin66/devstandard-skills add observability-logging
+npx github:Marilin66/devstandard-skills add infra-security-ops
 
 # Engineering & Qualité
 npx github:Marilin66/devstandard-skills add testing-strategy
@@ -86,7 +87,8 @@ Dès cet instant, votre assistant IA de code (Antigravity, Cursor, Claude Code, 
 | **`api-resilience`** | Statuts HTTP sémantiques, pagination bornée, limitation de débit (rate limiting), timeouts et clés d'idempotence. | `npx github:Marilin66/devstandard-skills add api-resilience` |
 | **`database-integrity`** | Transactions ACID, contraintes de clés étrangères, indexation stratégique, prévention requêtes N+1 et migrations sûres. | `npx github:Marilin66/devstandard-skills add database-integrity` |
 | **`security-hardening`** | Durcissement OWASP Top 10 : anti-injection SQL, CSRF, SSRF, en-têtes HTTP de sécurité stricts (HSTS, CSP). | `npx github:Marilin66/devstandard-skills add security-hardening` |
-| **`observability-logging`** | Logs JSON structurés, corrélation universelle Request ID / Trace ID, masquage des PII et sondes de santé `/health`. | `npx github:Marilin66/devstandard-skills add observability-logging` |
+| **`observability-logging`** | Logs JSON structurés, corrélation universelle Request ID / Trace ID, masquage des PII et sondes de santé `/health`. | `npx github:Marilin66/devstandard-skills add observability-logging
+npx github:Marilin66/devstandard-skills add infra-security-ops` |
 
 ### 🔷 Engineering & Méthodes
 
