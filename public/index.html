@@ -1,22 +1,25 @@
 <!DOCTYPE html>
-<html lang="fr" class="dark">
+<html lang="fr" class="scroll-smooth bg-white text-slate-900">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DevStandard — Registre Open-Source de Skills & Standards IA</title>
+  <title>DevStandard — Registre Ouvert de Standards d'Ingénierie pour Développeurs et IA</title>
+  <meta name="description" content="Standards rigoureux d'ingénierie logicielle pour applications web et mobiles. Sans artifice IA, fond clair classique, accessibilité WCAG 2.2 AA et architecture sécurisée.">
+  
+  <!-- Tailwind CSS & Marked.js -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
             brand: {
               50: '#eff6ff',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
+              100: '#dbeafe',
+              600: '#1d4ed8',
+              700: '#1e40af',
+              800: '#1e3a8a',
             }
           }
         }
@@ -25,69 +28,108 @@
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    .markdown-body h1 { font-size: 1.5rem; font-weight: 700; margin-top: 1.25rem; margin-bottom: 0.75rem; color: #f8fafc; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; }
-    .markdown-body h2 { font-size: 1.25rem; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; color: #e2e8f0; }
-    .markdown-body h3 { font-size: 1.1rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; color: #cbd5e1; }
-    .markdown-body p { margin-bottom: 0.75rem; color: #94a3b8; line-height: 1.6; }
-    .markdown-body ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 0.75rem; color: #94a3b8; }
+    /* Design Tokens Human-Crafted (Conforme au skill frontend/design-tokens) */
+    :root {
+      --surface-canvas: #ffffff;
+      --surface-card: #ffffff;
+      --surface-subtle: #f8fafc;
+      --surface-border: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --action-primary: #1d4ed8;
+      --action-primary-hover: #1e40af;
+      --action-primary-focus: #3b82f6;
+    }
+
+    /* WCAG 2.2 AA : Réduction de mouvement */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Styles Markdown sobres et lisibles */
+    .markdown-body h1 { font-size: 1.4rem; font-weight: 700; margin-top: 1.25rem; margin-bottom: 0.75rem; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; }
+    .markdown-body h2 { font-size: 1.2rem; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; color: #1e293b; }
+    .markdown-body h3 { font-size: 1.05rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; color: #334155; }
+    .markdown-body p { margin-bottom: 0.75rem; color: #475569; line-height: 1.6; }
+    .markdown-body ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 0.75rem; color: #475569; }
     .markdown-body li { margin-bottom: 0.25rem; }
-    .markdown-body table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.875rem; }
-    .markdown-body th, .markdown-body td { border: 1px solid #334155; padding: 0.5rem 0.75rem; text-align: left; }
-    .markdown-body th { background: #1e293b; color: #f1f5f9; font-weight: 600; }
-    .markdown-body td { color: #cbd5e1; }
-    .markdown-body pre { background: #0f172a; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1rem; border: 1px solid #334155; }
-    .markdown-body code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.85rem; color: #38bdf8; }
-    .markdown-body blockquote { border-left: 3px solid #3b82f6; padding-left: 1rem; color: #93c5fd; background: rgba(59, 130, 246, 0.08); padding-top: 0.5rem; padding-bottom: 0.5rem; margin-bottom: 1rem; border-radius: 0 0.375rem 0.375rem 0; }
+    .markdown-body table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.85rem; }
+    .markdown-body th, .markdown-body td { border: 1px solid #cbd5e1; padding: 0.5rem 0.75rem; text-align: left; }
+    .markdown-body th { background: #f1f5f9; color: #0f172a; font-weight: 600; }
+    .markdown-body td { color: #334155; }
+    .markdown-body pre { background: #0f172a; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1rem; font-size: 0.825rem; }
+    .markdown-body code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.85rem; }
+    .markdown-body :not(pre) > code { background: #f1f5f9; color: #0f172a; padding: 0.15rem 0.35rem; border-radius: 0.25rem; border: 1px solid #e2e8f0; }
+    .markdown-body blockquote { border-left: 3px solid #1d4ed8; padding-left: 1rem; color: #1e3a8a; background: #eff6ff; padding-top: 0.5rem; padding-bottom: 0.5rem; margin-bottom: 1rem; border-radius: 0 0.375rem 0.375rem 0; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-white text-slate-900 min-h-screen flex flex-col font-sans antialiased selection:bg-blue-100 selection:text-blue-900">
 
-  <!-- Header -->
-  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-40">
+  <!-- Lien d'évitement accessible (WCAG 2.2 AA) -->
+  <a href="#catalogue" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-700 focus:text-white focus:rounded-lg focus:shadow-xl focus:ring-2 focus:ring-blue-500">
+    Passer au contenu principal
+  </a>
+
+  <!-- Header Sobre Classique (Inspiration ANIP / Stripe / ChatGPT Web) -->
+  <header class="border-b border-slate-200 bg-white/95 backdrop-blur sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20">
-          <i class="fa-solid fa-layer-group text-sm"></i>
+        <div class="w-8 h-8 rounded-lg bg-blue-700 text-white flex items-center justify-center font-bold text-sm">
+          <!-- Icône vectorielle pure (pas de sticker) -->
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+          </svg>
         </div>
-        <div>
-          <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">DevStandard</span>
-          <span class="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">skills.sh ready</span>
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-base tracking-tight text-slate-900">DevStandard</span>
+          <span class="text-[11px] font-medium px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">Web & Mobile</span>
         </div>
       </div>
-      <div class="flex items-center gap-4">
-        <a href="#catalogue" class="text-sm font-medium text-slate-300 hover:text-white transition">Catalogue</a>
-        <a href="#quickstart" class="text-sm font-medium text-slate-300 hover:text-white transition">Installation</a>
-        <a id="github-link" href="https://github.com/Marilin66/devstandard-skills" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium flex items-center gap-2 border border-slate-700 transition">
-          <i class="fa-brands fa-github text-base"></i>
+      <nav class="hidden md:flex items-center gap-6" aria-label="Navigation principale">
+        <a href="#how-it-works" class="text-xs font-semibold text-slate-600 hover:text-slate-900 transition focus-visible:ring-2 focus-visible:ring-blue-600 rounded px-1.5 py-0.5">Comment ça marche ?</a>
+        <a href="#catalogue" class="text-xs font-semibold text-slate-600 hover:text-slate-900 transition focus-visible:ring-2 focus-visible:ring-blue-600 rounded px-1.5 py-0.5">Catalogue des Standards</a>
+        <a href="#compatibility" class="text-xs font-semibold text-slate-600 hover:text-slate-900 transition focus-visible:ring-2 focus-visible:ring-blue-600 rounded px-1.5 py-0.5">Environnements Supportés</a>
+        <a href="#faq" class="text-xs font-semibold text-slate-600 hover:text-slate-900 transition focus-visible:ring-2 focus-visible:ring-blue-600 rounded px-1.5 py-0.5">FAQ</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/Marilin66/devstandard-skills" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold flex items-center gap-2 border border-slate-300 transition focus-visible:ring-2 focus-visible:ring-blue-600">
+          <i class="fa-brands fa-github text-sm"></i>
           <span>GitHub</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="relative pt-16 pb-12 overflow-hidden border-b border-slate-800/80">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(59,130,246,0.15),rgba(255,255,255,0))]"></div>
-    <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-6">
-        <i class="fa-solid fa-shield-halved"></i> 100% Gratuit, Open Source & Zero Serveur
+  <!-- Hero Section Épurée (Fond Blanc Lumineux & Typographie Précise) -->
+  <section class="pt-16 pb-14 border-b border-slate-200 bg-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium mb-6">
+        <svg class="w-3.5 h-3.5 text-blue-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+        Standards d'ingénierie éprouvés pour le Web & le Mobile
       </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-        Standards d'Ingénierie & Skills <br/>
-        <span class="bg-gradient-to-r from-blue-400 via-indigo-300 to-sky-400 bg-clip-text text-transparent">pour Assistants IA</span>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-5 leading-tight">
+        Des standards de code humains et rigoureux <br/>
+        <span class="text-blue-700">pour vos assistants IA de développement</span>
       </h1>
-      <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-        Importez en une seule commande les standards vérifiés de Frontend, Backend et Sécurité directement dans vos dépôts pour 
-        <strong class="text-slate-200 font-semibold">Antigravity, Cursor, Claude Code, OpenCode et Codex</strong>.
+      <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+        Fini le code généré aux allures de maquette d'IA. Appliquez des règles strictes issues des plateformes d'État (ANIP, e-services, RAVIP, DSFR) et des meilleures pratiques d'ingénierie logicielle.
       </p>
 
       <!-- Quick Command Box -->
-      <div id="quickstart" class="max-w-xl mx-auto bg-slate-900 border border-slate-700 rounded-xl p-3 shadow-2xl flex items-center justify-between gap-3 text-left">
-        <div class="flex items-center gap-2.5 overflow-hidden pl-2">
-          <span class="text-blue-400 font-mono text-sm font-bold">$</span>
-          <code id="hero-cmd" class="text-sm font-mono text-slate-200 truncate select-all">npx github:Marilin66/devstandard-skills add all</code>
+      <div class="max-w-2xl mx-auto bg-slate-50 border border-slate-300 rounded-xl p-3 shadow-sm flex items-center justify-between gap-3 text-left">
+        <div class="flex items-center gap-3 overflow-hidden pl-2">
+          <span class="text-slate-500 font-mono text-sm font-bold">$</span>
+          <code id="hero-cmd" class="text-xs sm:text-sm font-mono text-slate-900 truncate select-all">npx github:Marilin66/devstandard-skills add all</code>
         </div>
-        <button onclick="copyCommand('npx github:Marilin66/devstandard-skills add all', this)" class="shrink-0 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 shadow-md shadow-blue-600/30">
+        <button onclick="copyCommand('npx github:Marilin66/devstandard-skills add all', this)" class="shrink-0 px-4 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 shadow-sm focus-visible:ring-2 focus-visible:ring-blue-600">
           <i class="fa-regular fa-copy"></i>
           <span>Copier</span>
         </button>
@@ -95,106 +137,251 @@
 
       <!-- Pack Shortcuts -->
       <div class="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs">
-        <span class="text-slate-500">Packs rapides :</span>
-        <button onclick="copyCommand('npx github:Marilin66/devstandard-skills add frontend-pack', this)" class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition">
-          <i class="fa-solid fa-palette text-blue-400 mr-1"></i> Frontend Pack
+        <span class="text-slate-500 font-medium">Installation rapide :</span>
+        <button onclick="copyCommand('npx github:Marilin66/devstandard-skills add frontend-pack', this)" class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition flex items-center gap-1.5 shadow-2xs">
+          <svg class="w-3.5 h-3.5 text-blue-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          Pack Frontend
         </button>
-        <button onclick="copyCommand('npx github:Marilin66/devstandard-skills add backend-pack', this)" class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition">
-          <i class="fa-solid fa-server text-emerald-400 mr-1"></i> Backend Pack
+        <button onclick="copyCommand('npx github:Marilin66/devstandard-skills add backend-pack', this)" class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition flex items-center gap-1.5 shadow-2xs">
+          <svg class="w-3.5 h-3.5 text-emerald-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+          Pack Backend
         </button>
-        <button onclick="copyCommand('npx github:Marilin66/devstandard-skills list', this)" class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition">
-          <i class="fa-solid fa-terminal text-amber-400 mr-1"></i> Lister les skills
+        <button onclick="copyCommand('npx github:Marilin66/devstandard-skills list', this)" class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition flex items-center gap-1.5 shadow-2xs">
+          <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+          Lister les 14 skills
         </button>
       </div>
     </div>
   </section>
 
-  <!-- Catalogue Section -->
-  <main id="catalogue" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
-    
-    <!-- Controls (Search + Filters) -->
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-      <!-- Search Input -->
-      <div class="relative w-full sm:w-80">
-        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
-        <input 
-          id="search-input" 
-          type="text" 
-          placeholder="Rechercher un standard (ex: tokens, a11y, sql)..." 
-          class="w-full pl-9 pr-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
-        >
+  <!-- Section "Comment ça marche ?" -->
+  <section id="how-it-works" class="py-16 border-b border-slate-200 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">Fonctionnement Universel</h2>
+        <p class="text-slate-600 text-sm">Les skills s'installent dans vos dépôts existants sans modifier votre environnement.</p>
       </div>
 
-      <!-- Domain Tabs -->
-      <div class="flex items-center gap-1.5 p-1 bg-slate-900 border border-slate-800 rounded-xl w-full sm:w-auto overflow-x-auto">
-        <button onclick="filterDomain('all')" class="domain-tab active px-3.5 py-1.5 rounded-lg text-xs font-semibold transition bg-blue-600 text-white" data-domain="all">
-          Tous (<span id="count-all">0</span>)
-        </button>
-        <button onclick="filterDomain('frontend')" class="domain-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition" data-domain="frontend">
-          <i class="fa-solid fa-palette mr-1 text-blue-400"></i> Frontend (<span id="count-frontend">0</span>)
-        </button>
-        <button onclick="filterDomain('backend')" class="domain-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition" data-domain="backend">
-          <i class="fa-solid fa-server mr-1 text-emerald-400"></i> Backend (<span id="count-backend">0</span>)
-        </button>
-        <button onclick="filterDomain('engineering')" class="domain-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition" data-domain="engineering">
-          <i class="fa-solid fa-vial mr-1 text-purple-400"></i> Qualité (<span id="count-engineering">0</span>)
-        </button>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Étape 1 -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs">
+          <div class="w-8 h-8 rounded-lg bg-slate-100 text-slate-800 font-bold text-sm flex items-center justify-center mb-4">
+            1
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-2">Exécutez la commande</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Dans le dossier de votre projet web ou mobile (React, Vue, Next.js, Flutter, React Native, Laravel...), lancez la commande d'installation.
+          </p>
+        </div>
+
+        <!-- Étape 2 -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs">
+          <div class="w-8 h-8 rounded-lg bg-slate-100 text-slate-800 font-bold text-sm flex items-center justify-center mb-4">
+            2
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-2">Fichiers autonomes</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Le standard est téléchargé dans <code class="text-blue-800 font-mono text-[11px] bg-slate-100 px-1 py-0.5 rounded">.agents/skills/&lt;skill&gt;/SKILL.md</code>. Il est versionné avec votre code dans Git.
+          </p>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-2xs">
+          <div class="w-8 h-8 rounded-lg bg-slate-100 text-slate-800 font-bold text-sm flex items-center justify-center mb-4">
+            3
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-2">L'IA applique les règles</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Votre assistant IA (Antigravity, Cursor, Claude Code, Codex) lit nativement ces règles et génère des interfaces sobres et du code sécurisé.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalogue Section -->
+  <main id="catalogue" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 flex-1 w-full bg-white">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+      <div>
+        <h2 class="text-2xl font-bold text-slate-900">Catalogue des 14 Standards</h2>
+        <p class="text-slate-500 text-xs mt-0.5">Standards d'architecture, design épuré, accessibilité et sécurité.</p>
+      </div>
+
+      <!-- Controls (Recherche + Filtres) -->
+      <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+        <!-- Champ de recherche -->
+        <div class="relative w-full sm:w-64">
+          <label for="search-input" class="sr-only">Rechercher un standard</label>
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs" aria-hidden="true"></i>
+          <input 
+            id="search-input" 
+            name="search"
+            type="search" 
+            autocomplete="off"
+            placeholder="Rechercher (ex: tokens, a11y, sql)..." 
+            class="w-full pl-8 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition min-h-[38px]"
+          >
+        </div>
+
+        <!-- Onglets de domaines -->
+        <div class="flex items-center gap-1 p-1 bg-slate-100 rounded-lg border border-slate-200 text-xs w-full sm:w-auto overflow-x-auto" role="tablist">
+          <button onclick="filterDomain('all')" class="domain-tab active px-3 py-1.5 rounded-md font-medium transition bg-white text-slate-900 shadow-2xs" data-domain="all" role="tab" aria-selected="true">
+            Tous (<span id="count-all">0</span>)
+          </button>
+          <button onclick="filterDomain('frontend')" class="domain-tab px-3 py-1.5 rounded-md font-medium text-slate-600 hover:text-slate-900 transition" data-domain="frontend" role="tab" aria-selected="false">
+            Frontend (<span id="count-frontend">0</span>)
+          </button>
+          <button onclick="filterDomain('backend')" class="domain-tab px-3 py-1.5 rounded-md font-medium text-slate-600 hover:text-slate-900 transition" data-domain="backend" role="tab" aria-selected="false">
+            Backend (<span id="count-backend">0</span>)
+          </button>
+          <button onclick="filterDomain('engineering')" class="domain-tab px-3 py-1.5 rounded-md font-medium text-slate-600 hover:text-slate-900 transition" data-domain="engineering" role="tab" aria-selected="false">
+            Qualité (<span id="count-engineering">0</span>)
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- Grid of Skills -->
+    <!-- Grille des Cartes -->
     <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      <!-- Les cartes de skills sont injectées dynamiquement ici -->
+      <!-- Injecté dynamiquement par JavaScript -->
     </div>
   </main>
 
-  <!-- Skill Modal Viewer -->
-  <div id="skill-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4 sm:p-6">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-      <!-- Modal Header -->
-      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/50">
-        <div>
-          <span id="modal-domain" class="text-xs font-bold uppercase tracking-wider text-blue-400">FRONTEND</span>
-          <h2 id="modal-title" class="text-lg font-bold text-white">Titre du Standard</h2>
+  <!-- Compatibilité Multi-Plateformes -->
+  <section id="compatibility" class="py-14 border-t border-slate-200 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Compatibilité Éprouvée Web & Mobile</h2>
+        <p class="text-slate-600 text-xs">Standards exploitables par les principaux agents et environnements de développement.</p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 text-center">
+        <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-2xs">
+          <i class="fa-solid fa-robot text-xl text-slate-700 mb-2 block" aria-hidden="true"></i>
+          <h3 class="font-bold text-xs text-slate-900 mb-1">Antigravity</h3>
+          <span class="text-[10px] text-emerald-800 font-medium bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Natif</span>
         </div>
-        <button onclick="closeModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">
-          <i class="fa-solid fa-xmark"></i>
+        <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-2xs">
+          <i class="fa-solid fa-i-cursor text-xl text-slate-700 mb-2 block" aria-hidden="true"></i>
+          <h3 class="font-bold text-xs text-slate-900 mb-1">Cursor</h3>
+          <span class="text-[10px] text-emerald-800 font-medium bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Rules & Skills</span>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-2xs">
+          <i class="fa-solid fa-brain text-xl text-slate-700 mb-2 block" aria-hidden="true"></i>
+          <h3 class="font-bold text-xs text-slate-900 mb-1">Claude Code</h3>
+          <span class="text-[10px] text-emerald-800 font-medium bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Agent Skills</span>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-2xs">
+          <i class="fa-solid fa-code text-xl text-slate-700 mb-2 block" aria-hidden="true"></i>
+          <h3 class="font-bold text-xs text-slate-900 mb-1">OpenCode</h3>
+          <span class="text-[10px] text-emerald-800 font-medium bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Standard</span>
+        </div>
+        <div class="bg-white border border-slate-200 rounded-lg p-4 shadow-2xs">
+          <i class="fa-solid fa-terminal text-xl text-slate-700 mb-2 block" aria-hidden="true"></i>
+          <h3 class="font-bold text-xs text-slate-900 mb-1">OpenAI Codex</h3>
+          <span class="text-[10px] text-emerald-800 font-medium bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">AGENTS.md</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-14 border-t border-slate-200 bg-white">
+    <div class="max-w-3xl mx-auto px-4">
+      <div class="text-center mb-10">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Foire Aux Questions</h2>
+        <p class="text-slate-600 text-xs">Principes et utilisation de DevStandard.</p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50">
+          <h3 class="font-bold text-sm text-slate-900 mb-1">Pourquoi pas de fond sombre violet ou d'effets visuels IA ?</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Les dégradés violets et néons sont des marqueurs typiques du contenu généré artificiellement sans considération ergonomique. Les portails d'État (ANIP, RAVIP, service-public.bj), les applications bancaires et les produits d'envergure utilisent un <strong>fond blanc ou très clair</strong> et des <strong>icônes vectorielles sobres</strong> pour maximiser la confiance, la lisibilité et le confort visuel.
+          </p>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50">
+          <h3 class="font-bold text-sm text-slate-900 mb-1">Est-ce compatible avec les applications mobiles (React Native, Flutter, Swift, Kotlin) ?</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            <strong>Oui, absolument.</strong> Les skills intègrent les spécifications pour mobiles : cibles tactiles de 44x44pt (iOS) et 48x48dp (Android), gestion des zones sûres (*Safe Areas*), et composants adaptés à une manipulation à une main (*Bottom Sheets*).
+          </p>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50">
+          <h3 class="font-bold text-sm text-slate-900 mb-1">Dois-je commiter le dossier .agents/skills/ dans mon dépôt Git ?</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            <strong>Oui.</strong> Commiter ces fichiers garantit que n'importe quel développeur ou n'importe quelle IA intervenant sur le projet respectera strictement la même charte d'ingénierie.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modale de Lecture Accessible (WCAG 2.2 AA avec Focus Trap) -->
+  <div 
+    id="skill-modal" 
+    role="dialog" 
+    aria-modal="true" 
+    aria-labelledby="modal-title" 
+    class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs hidden flex items-center justify-center p-4 sm:p-6"
+  >
+    <div class="bg-white border border-slate-300 rounded-2xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      <!-- En-tête de la modale -->
+      <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div>
+          <span id="modal-domain" class="text-[10px] font-bold uppercase tracking-wider text-blue-700">FRONTEND</span>
+          <h2 id="modal-title" class="text-base font-bold text-slate-900">Titre du Standard</h2>
+        </div>
+        <button id="modal-close-btn" onclick="closeModal()" aria-label="Fermer la boîte de dialogue" class="w-8 h-8 rounded-lg bg-white hover:bg-slate-100 text-slate-500 hover:text-slate-900 flex items-center justify-center border border-slate-200 transition focus-visible:ring-2 focus-visible:ring-blue-600">
+          <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
         </button>
       </div>
 
-      <!-- Modal Install Banner -->
-      <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between gap-3">
-        <code id="modal-command" class="text-xs font-mono text-blue-300 truncate">npx github:Marilin66/devstandard-skills add ...</code>
-        <button id="modal-copy-btn" class="px-3 py-1 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shrink-0 transition flex items-center gap-1.5">
-          <i class="fa-regular fa-copy"></i>
+      <!-- Bannière de commande d'installation -->
+      <div class="px-5 py-3 bg-slate-100 border-b border-slate-200 flex items-center justify-between gap-3">
+        <code id="modal-command" class="text-xs font-mono text-slate-800 truncate">npx github:Marilin66/devstandard-skills add ...</code>
+        <button id="modal-copy-btn" class="px-3 py-1.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold shrink-0 transition flex items-center gap-1.5 shadow-2xs focus-visible:ring-2 focus-visible:ring-blue-600">
+          <i class="fa-regular fa-copy" aria-hidden="true"></i>
           <span>Copier</span>
         </button>
       </div>
 
-      <!-- Modal Body (Markdown Rendered) -->
-      <div id="modal-content" class="p-6 overflow-y-auto markdown-body text-slate-300 text-sm leading-relaxed flex-1">
-        <!-- Markdown injected here -->
+      <!-- Contenu Markdown du Standard -->
+      <div id="modal-content" class="p-6 overflow-y-auto markdown-body text-slate-700 text-xs sm:text-sm leading-relaxed flex-1">
+        <!-- Rendu markdown injecté ici -->
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-800/80 bg-slate-900/40 py-8 text-center text-xs text-slate-500">
-    <p>DevStandard AI — Registre ouvert d'ingénierie logicielle & Design Systems pour agents de code.</p>
-    <p class="mt-1">Compatible OpenCode, Claude Code, Cursor, Antigravity et OpenAI Codex.</p>
+  <!-- Footer Sobre -->
+  <footer class="border-t border-slate-200 bg-slate-50 py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© 2026 DevStandard — Registre ouvert d'ingénierie logicielle pour applications Web et Mobiles.</p>
+      <div class="flex items-center gap-5 font-medium">
+        <a href="https://github.com/Marilin66/devstandard-skills" target="_blank" rel="noopener noreferrer" class="hover:text-slate-900 transition">Dépôt GitHub</a>
+        <a href="#how-it-works" class="hover:text-slate-900 transition">Guide</a>
+        <a href="#catalogue" class="hover:text-slate-900 transition">14 Standards</a>
+      </div>
+    </div>
   </footer>
 
   <script>
+    const GITHUB_REPO_RAW = "https://raw.githubusercontent.com/Marilin66/devstandard-skills/main";
     let registryData = null;
     let activeFilter = 'all';
+    let lastFocusedElement = null;
 
     async function initApp() {
       try {
-        const res = await fetch('/registry.json');
+        let res = await fetch('./registry.json');
+        if (!res.ok) {
+          res = await fetch(`${GITHUB_REPO_RAW}/registry.json`);
+        }
         registryData = await res.json();
         renderSkills();
       } catch (err) {
-        console.error("Erreur de chargement de registry.json", err);
+        console.error("Erreur de chargement du registre :", err);
       }
     }
 
@@ -214,7 +401,7 @@
         return matchesDomain && matchesQuery;
       });
 
-      // Update Counts
+      // Compteurs
       document.getElementById('count-all').innerText = registryData.skills.length;
       document.getElementById('count-frontend').innerText = registryData.skills.filter(s => s.domain === 'frontend').length;
       document.getElementById('count-backend').innerText = registryData.skills.filter(s => s.domain === 'backend').length;
@@ -222,8 +409,8 @@
 
       if (filtered.length === 0) {
         grid.innerHTML = `
-          <div class="col-span-full py-16 text-center text-slate-500">
-            <i class="fa-solid fa-folder-open text-3xl mb-3 block"></i>
+          <div class="col-span-full py-12 text-center text-slate-500 bg-slate-50 rounded-xl border border-slate-200">
+            <svg class="w-8 h-8 mx-auto mb-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             Aucun standard ne correspond à votre recherche "${query}".
           </div>
         `;
@@ -231,47 +418,46 @@
       }
 
       for (const skill of filtered) {
-        const domainColors = {
-          frontend: { badge: 'bg-blue-500/10 text-blue-400 border-blue-500/20', icon: 'fa-palette text-blue-400' },
-          backend: { badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20', icon: 'fa-server text-emerald-400' },
-          engineering: { badge: 'bg-purple-500/10 text-purple-400 border-purple-500/20', icon: 'fa-vial text-purple-400' }
-        }[skill.domain] || { badge: 'bg-slate-800 text-slate-300 border-slate-700', icon: 'fa-code text-slate-400' };
+        const domainMeta = {
+          frontend: { badge: 'bg-blue-50 text-blue-800 border-blue-200', label: 'Frontend' },
+          backend: { badge: 'bg-emerald-50 text-emerald-800 border-emerald-200', label: 'Backend' },
+          engineering: { badge: 'bg-slate-100 text-slate-800 border-slate-200', label: 'Qualité' }
+        }[skill.domain] || { badge: 'bg-slate-100 text-slate-800 border-slate-200', label: skill.domain };
 
         const card = document.createElement('div');
-        card.className = "bg-slate-900 border border-slate-800 rounded-2xl p-5 hover:border-slate-700 transition flex flex-col justify-between group shadow-sm hover:shadow-xl hover:shadow-blue-500/5";
+        card.className = "bg-white border border-slate-200 rounded-xl p-5 hover:border-slate-300 hover:shadow-md transition flex flex-col justify-between group";
 
         card.innerHTML = `
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border ${domainColors.badge} flex items-center gap-1.5">
-                <i class="fa-solid ${domainColors.icon} text-[10px]"></i>
-                ${skill.domain.toUpperCase()}
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded border ${domainMeta.badge}">
+                ${domainMeta.label}
               </span>
-              <span class="text-[11px] font-mono text-slate-500">${skill.name}</span>
+              <span class="text-[11px] font-mono text-slate-400">${skill.name}</span>
             </div>
 
-            <h3 class="font-bold text-white text-base mb-2 group-hover:text-blue-400 transition cursor-pointer" onclick="openSkillModal('${skill.name}')">
+            <h3 class="font-bold text-slate-900 text-sm mb-1.5 group-hover:text-blue-700 transition cursor-pointer" onclick="openSkillModal('${skill.name}')">
               ${skill.title}
             </h3>
             
-            <p class="text-slate-400 text-xs leading-relaxed mb-4 line-clamp-3">
+            <p class="text-slate-600 text-xs leading-relaxed mb-4 line-clamp-3">
               ${skill.description}
             </p>
 
-            <div class="flex flex-wrap gap-1.5 mb-5">
+            <div class="flex flex-wrap gap-1 mb-4">
               ${(skill.tags || []).slice(0, 3).map(tag => `
-                <span class="text-[10px] bg-slate-950 text-slate-400 px-2 py-0.5 rounded-md border border-slate-800">#${tag}</span>
+                <span class="text-[10px] bg-slate-50 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200">#${tag}</span>
               `).join('')}
             </div>
           </div>
 
-          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
-            <button onclick="openSkillModal('${skill.name}')" class="text-xs font-medium text-slate-300 hover:text-white transition flex items-center gap-1">
-              <span>Lire les règles</span>
-              <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+            <button onclick="openSkillModal('${skill.name}')" class="text-xs font-semibold text-slate-700 hover:text-blue-700 transition flex items-center gap-1 focus-visible:ring-2 focus-visible:ring-blue-600 rounded p-1">
+              <span>Consulter</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
             </button>
-            <button onclick="copyCommand('npx github:Marilin66/devstandard-skills add ${skill.name}', this)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium transition flex items-center gap-1.5 active:scale-95">
-              <i class="fa-regular fa-copy text-[11px]"></i>
+            <button onclick="copyCommand('npx github:Marilin66/devstandard-skills add ${skill.name}', this)" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-medium transition flex items-center gap-1.5 active:scale-95 border border-slate-200 focus-visible:ring-2 focus-visible:ring-blue-600">
+              <i class="fa-regular fa-copy text-[11px]" aria-hidden="true"></i>
               <span>Installer</span>
             </button>
           </div>
@@ -283,10 +469,12 @@
     function filterDomain(domain) {
       activeFilter = domain;
       document.querySelectorAll('.domain-tab').forEach(btn => {
-        if (btn.getAttribute('data-domain') === domain) {
-          btn.className = 'domain-tab active px-3.5 py-1.5 rounded-lg text-xs font-semibold transition bg-blue-600 text-white';
+        const isMatch = btn.getAttribute('data-domain') === domain;
+        btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
+        if (isMatch) {
+          btn.className = 'domain-tab active px-3 py-1.5 rounded-md font-medium transition bg-white text-slate-900 shadow-2xs';
         } else {
-          btn.className = 'domain-tab px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition';
+          btn.className = 'domain-tab px-3 py-1.5 rounded-md font-medium text-slate-600 hover:text-slate-900 transition';
         }
       });
       renderSkills();
@@ -295,6 +483,7 @@
     document.getElementById('search-input').addEventListener('input', renderSkills);
 
     async function openSkillModal(skillName) {
+      lastFocusedElement = document.activeElement;
       const skill = registryData.skills.find(s => s.name === skillName);
       if (!skill) return;
 
@@ -304,20 +493,26 @@
       document.getElementById('modal-command').innerText = cmd;
       document.getElementById('modal-copy-btn').onclick = function() { copyCommand(cmd, this); };
 
-      document.getElementById('modal-content').innerHTML = '<div class="text-center py-10 text-slate-500"><i class="fa-solid fa-spinner fa-spin text-xl"></i> Chargement...</div>';
-      document.getElementById('skill-modal').classList.remove('hidden');
+      document.getElementById('modal-content').innerHTML = '<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-spinner fa-spin text-lg" aria-hidden="true"></i> Chargement...</div>';
+      
+      const modal = document.getElementById('skill-modal');
+      modal.classList.remove('hidden');
+      document.getElementById('modal-close-btn').focus();
 
       try {
-        const res = await fetch(`/${skill.path}`);
+        const res = await fetch(`${GITHUB_REPO_RAW}/${skill.path}`);
         const markdown = await res.text();
         document.getElementById('modal-content').innerHTML = marked.parse(markdown);
       } catch (e) {
-        document.getElementById('modal-content').innerHTML = '<p class="text-red-400">Erreur lors du chargement du fichier standard.</p>';
+        document.getElementById('modal-content').innerHTML = '<p class="text-red-600">Erreur lors du chargement du fichier standard depuis GitHub.</p>';
       }
     }
 
     function closeModal() {
       document.getElementById('skill-modal').classList.add('hidden');
+      if (lastFocusedElement) {
+        lastFocusedElement.focus();
+      }
     }
 
     window.addEventListener('keydown', (e) => {
@@ -327,11 +522,11 @@
     function copyCommand(text, btnElement) {
       navigator.clipboard.writeText(text).then(() => {
         const originalHtml = btnElement.innerHTML;
-        btnElement.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i> Copié !';
-        btnElement.classList.add('bg-emerald-600/30', 'text-emerald-300');
+        btnElement.innerHTML = '<i class="fa-solid fa-check text-emerald-600" aria-hidden="true"></i> Copié !';
+        btnElement.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-200');
         setTimeout(() => {
           btnElement.innerHTML = originalHtml;
-          btnElement.classList.remove('bg-emerald-600/30', 'text-emerald-300');
+          btnElement.classList.remove('bg-emerald-50', 'text-emerald-800', 'border-emerald-200');
         }, 1800);
       });
     }
