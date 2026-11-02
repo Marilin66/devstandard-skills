@@ -1,0 +1,186 @@
+{
+  "version": "0.1.0",
+  "updated_at": "2026-11-02",
+  "delivery_statuses": [
+    "native",
+    "compatible_via_common_format",
+    "adapter_required",
+    "manual_install",
+    "not_verified"
+  ],
+  "platforms": [
+    {
+      "id": "agent-skills",
+      "label": "Agent Skills (format ouvert)",
+      "category": "open-standard",
+      "delivery": "skill-folder",
+      "status": "native",
+      "verified_at": "2026-11-02",
+      "docs_url": "https://agentskills.io/specification",
+      "install_path": ".agents/skills/<nom-du-skill>/SKILL.md",
+      "notes": "Format canonique de référence du dossier (addendum §2). Le statut native décrit le format lui-même, pas la prise en charge par un agent particulier.",
+      "limits": ["Chaque agent peut restreindre les métadonnées ou les chemins de découverte acceptés."]
+    },
+    {
+      "id": "opencode",
+      "label": "OpenCode",
+      "category": "ide-agent",
+      "delivery": "config-file",
+      "status": "not_verified",
+      "verified_at": null,
+      "docs_url": "https://opencode.ai/docs/skills",
+      "install_path": ".opencode/skills/<nom-du-skill>/SKILL.md",
+      "notes": "Prise en charge des skills documentée par l’éditeur ; aucune vérification n’a encore été exécutée contre une version installée.",
+      "limits": ["Version minimale non vérifiée.", "Chemins de découverte à confirmer par test."]
+    },
+    {
+      "id": "claude-code",
+      "label": "Claude Code",
+      "category": "ide-agent",
+      "delivery": "skill-folder",
+      "status": "not_verified",
+      "verified_at": null,
+      "docs_url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview",
+      "install_path": ".claude/skills/<nom-du-skill>/SKILL.md",
+      "notes": "Format Skills documenté par Anthropic ; adaptateur dédié nécessaire, non testé à ce jour.",
+      "limits": ["Métadonnées SKILL.md à valider par version de l’outil."]
+    },
+    {
+      "id": "codex",
+      "label": "OpenAI Codex",
+      "category": "ide-agent",
+      "delivery": "rules-file",
+      "status": "not_verified",
+      "verified_at": null,
+      "docs_url": "https://developers.openai.com/api/docs/guides/tools-skills",
+      "install_path": "AGENTS.md",
+      "notes": "Instruction d’agent au format AGENTS.md et skills selon les capacités documentées ; aucune compatibilité annoncée sans test.",
+      "limits": ["Les surfaces Codex et ChatGPT n’acceptent pas les mêmes formats."]
+    },
+    {
+      "id": "cursor",
+      "label": "Cursor",
+      "category": "ide-agent",
+      "delivery": "rules-file",
+      "status": "not_verified",
+      "verified_at": null,
+      "install_path": ".cursor/rules/",
+      "notes": "Règles de projet au format Cursor. Format à reconfirmer contre la documentation courante avant toute publication d’adaptateur.",
+      "limits": ["Pas de skills versionnés : uniquement des règles de projet."]
+    },
+    {
+      "id": "windsurf",
+      "label": "Windsurf",
+      "category": "ide-agent",
+      "delivery": "rules-file",
+      "status": "not_verified",
+      "verified_at": null,
+      "notes": "Règles de projet à valider contre la documentation de l’éditeur ; aucune prise en charge des skills vérifiée.",
+      "limits": ["Chemin et format de règles non confirmés."]
+    },
+    {
+      "id": "cline",
+      "label": "Cline",
+      "category": "ide-agent",
+      "delivery": "rules-file",
+      "status": "not_verified",
+      "verified_at": null,
+      "notes": "Règles de projet .clinerules. Aucune vérification exécutée, adaptateur requis avant toute promesse de compatibilité.",
+      "limits": ["Pas de format de skills normalisé."]
+    },
+    {
+      "id": "antigravity",
+      "label": "Google Antigravity",
+      "category": "ide-agent",
+      "delivery": "skill-folder",
+      "status": "not_verified",
+      "verified_at": null,
+      "docs_url": "https://antigravity.google/docs/skills",
+      "install_path": ".agents/skills/<nom-du-skill>/SKILL.md",
+      "notes": "Documentation de skills publiée ; compatibilité non vérifiée et susceptible d’évoluer à chaque release.",
+      "limits": ["Chemin de découverte à confirmer par test sur une version installée."]
+    },
+    {
+      "id": "chatgpt",
+      "label": "ChatGPT (web et applications)",
+      "category": "chat-assistant",
+      "delivery": "instructions-paste",
+      "status": "not_verified",
+      "verified_at": null,
+      "docs_url": "https://learn.chatgpt.com/docs/build-skills",
+      "notes": "Surface de conversation : seules les instructions et références copiables sont pertinentes, sans installation automatique.",
+      "limits": ["Pas d’accès au dépôt du projet : le pack doit être collé ou téléversé manuellement."]
+    },
+    {
+      "id": "claude-apps",
+      "label": "Claude (web et applications)",
+      "category": "chat-assistant",
+      "delivery": "instructions-paste",
+      "status": "not_verified",
+      "verified_at": null,
+      "docs_url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview",
+      "notes": "Les surfaces conversationnelles Claude acceptent des instructions et, selon l’offre, des skills ; capacité à vérifier par version.",
+      "limits": ["Aucune vérification de téléversement effectuée."]
+    },
+    {
+      "id": "gemini",
+      "label": "Gemini (web et applications)",
+      "category": "chat-assistant",
+      "delivery": "instructions-paste",
+      "status": "not_verified",
+      "verified_at": null,
+      "notes": "Aucun format de skills documenté et stabilisé n’est pris en charge : livraison sous forme d’instructions seulement.",
+      "limits": ["Aucune installation dans un projet."]
+    },
+    {
+      "id": "copilot",
+      "label": "Microsoft Copilot",
+      "category": "chat-assistant",
+      "delivery": "instructions-paste",
+      "status": "not_verified",
+      "verified_at": null,
+      "notes": "Surface conversationnelle : instructions copiables. Aucune compatibilité de skill revendiquée sans documentation et test.",
+      "limits": ["Formats d’instructions propres à l’écosystème Microsoft."]
+    },
+    {
+      "id": "meta-ai",
+      "label": "Meta AI",
+      "category": "chat-assistant",
+      "delivery": "instructions-paste",
+      "status": "not_verified",
+      "verified_at": null,
+      "notes": "Aucune documentation publique de prise en charge de skills : seule une consigne courte peut être fournie manuellement.",
+      "limits": ["Pas d’installation, pas de fichiers de référence garantis."]
+    },
+    {
+      "id": "whatsapp-web",
+      "label": "WhatsApp Web",
+      "category": "messaging-surface",
+      "delivery": "instructions-paste",
+      "status": "not_verified",
+      "verified_at": null,
+      "notes": "Messagerie : la surface ne lit aucun fichier de projet. Seul un rappel de règles court et copiable peut être proposé, sans prétendre à une installation.",
+      "limits": ["Aucun accès au code source.", "Format texte long mal adapté à une conversation."]
+    },
+    {
+      "id": "facebook-lite",
+      "label": "Facebook Lite",
+      "category": "messaging-surface",
+      "delivery": "instructions-paste",
+      "status": "not_verified",
+      "verified_at": null,
+      "notes": "Interface légère de messagerie : seul un résumé de règles copiable est envisageable. Aucune capacité d’installation ni de découverte de fichiers.",
+      "limits": ["Aucune intégration technique documentée.", "Contenu long non exploitable dans la conversation."]
+    },
+    {
+      "id": "universal",
+      "label": "Pack universel (README + Markdown)",
+      "category": "universal",
+      "delivery": "archive",
+      "status": "not_verified",
+      "verified_at": null,
+      "notes": "Archive Markdown lisible par un humain ou n’importe quel assistant, sans activation automatique promise.",
+      "limits": ["Ne garantit aucune découverte automatique par un agent."]
+    }
+  ]
+}

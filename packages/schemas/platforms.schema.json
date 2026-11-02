@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://devstandard.ai/schemas/platforms.schema.json",
+  "title": "DevStandard — Registre des plateformes cibles",
+  "description": "Source de vérité des cibles d'export (agents de code, assistants de chat, surfaces de messagerie). Un statut différent de not_verified exige une date de vérification (ADR-0007).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "updated_at", "delivery_statuses", "platforms"],
+  "properties": {
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "updated_at": { "type": "string", "format": "date" },
+    "delivery_statuses": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "native",
+          "compatible_via_common_format",
+          "adapter_required",
+          "manual_install",
+          "not_verified"
+        ]
+      }
+    },
+    "platforms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "category", "delivery", "status", "notes"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "maxLength": 40
+          },
+          "label": { "type": "string", "minLength": 3, "maxLength": 80 },
+          "category": {
+            "type": "string",
+            "enum": ["open-standard", "ide-agent", "chat-assistant", "messaging-surface", "universal"]
+          },
+          "delivery": {
+            "type": "string",
+            "enum": ["skill-folder", "rules-file", "config-file", "instructions-paste", "archive"]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "native",
+              "compatible_via_common_format",
+              "adapter_required",
+              "manual_install",
+              "not_verified"
+            ]
+          },
+          "verified_at": {
+            "type": ["string", "null"],
+            "format": "date"
+          },
+          "docs_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+          "install_path": { "type": "string", "maxLength": 200 },
+          "notes": { "type": "string", "minLength": 20, "maxLength": 500 },
+          "limits": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 5, "maxLength": 200 },
+            "default": []
+          }
+        }
+      }
+    }
+  }
+}

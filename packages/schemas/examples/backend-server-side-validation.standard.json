@@ -1,0 +1,62 @@
+{
+  "id": "BE-INPUT-VALIDATION-001",
+  "slug": "server-side-input-validation",
+  "title": "Validation serveur systématique des entrées",
+  "domain": "backend",
+  "category": "input-data",
+  "priority": "critical",
+  "status": "published",
+  "version": "1.0.0",
+  "applies_to": ["api", "rest", "laravel", "fastapi", "nestjs"],
+  "conditions": ["exposition d'une API", "données fournies par un client"],
+  "dependencies": [],
+  "conflicts": [],
+  "rule": "Toute donnée reçue du client est validée côté serveur avant traitement ; le client ne peut pas désactiver ni contourner cette validation.",
+  "rationale": "La validation côté client est une aide à la saisie, jamais une garantie : un client peut toujours envoyer autre chose que ce que le formulaire produit.",
+  "requirements": [
+    "Déclarer un schéma ou un ensemble de règles de validation pour chaque endpoint qui accepte des données.",
+    "Rejeter les champs inconnus ou les filtrer explicitement.",
+    "Retourner un statut 4xx avec la liste des champs invalides, sans détail interne.",
+    "Ajouter des tests de cas limites : champs manquants, types erronés, tailles excessives, valeurs énumérées inattendues."
+  ],
+  "anti_patterns": [
+    "Faire confiance à un champ masqué ou désactivé côté formulaire.",
+    "Valider uniquement par typage statique.",
+    "Renvoyer une trace applicative dans la réponse d'erreur."
+  ],
+  "examples": {
+    "good": [
+      "public function store(StoreProjectRequest $request) { $data = $request->validated(); }",
+      "Rejeter les clés non déclarées du schéma au lieu de les ignorer silencieusement."
+    ],
+    "bad": [
+      "$data = $request->all();",
+      "Valider le format email uniquement dans le composant React."
+    ]
+  },
+  "validation": {
+    "type": "automated",
+    "checks": [
+      {
+        "id": "VALIDATION-RULES-PRESENT",
+        "description": "Chaque endpoint d'écriture dispose de règles de validation serveur déclarées.",
+        "method": "automated"
+      },
+      {
+        "id": "VALIDATION-NEGATIVE-TESTS",
+        "description": "Des tests couvrent les entrées invalides et les champs inattendus.",
+        "method": "automated"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "title": "OWASP ASVS — Validation des entrées",
+      "url": "https://owasp.org/www-project-application-security-verification-standard/",
+      "license": "CC BY-SA 4.0",
+      "retrieved_at": "2026-11-02"
+    }
+  ],
+  "license": "internal-curated",
+  "reviewed_at": "2026-11-02"
+}

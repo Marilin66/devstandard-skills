@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Builds
+.next/
+out/
+dist/
+build/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Laravel
+apps/api/storage/*.key
+apps/api/storage/logs/*.log
+apps/api/bootstrap/cache/*.php
+apps/api/database/*.sqlite
+apps/api/database/*.sqlite-journal
+apps/api/public/build
+apps/api/.phpunit.result.cache
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Local artifacts
+pdf_extract.txt
+*.zip
+coverage/
+.tmp/
+.tools/
+.DS_Store
+Thumbs.db

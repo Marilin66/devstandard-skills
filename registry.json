@@ -1,0 +1,38 @@
+{
+  "version": "1.0.0",
+  "name": "devstandard",
+  "description": "Registre open-source de standards d'ingénierie logicielle et skills pour assistants IA",
+  "repository": "https://github.com/votre-compte/devstandard",
+  "skills": [
+    {
+      "name": "design-tokens",
+      "slug": "frontend/design-tokens",
+      "title": "Design Tokens & Système Visuel",
+      "domain": "frontend",
+      "category": "visual-design",
+      "description": "Règles strictes et tokens de design UI : couleurs sémantiques, typographie, espacements 4px/8px et contrastes WCAG 2.2 AA.",
+      "path": "skills/frontend/design-tokens/SKILL.md",
+      "tags": ["frontend", "ui", "design-tokens", "tailwind", "wcag", "css"]
+    },
+    {
+      "name": "forms-and-states",
+      "slug": "frontend/forms-and-states",
+      "title": "Formulaires & Gestion des États",
+      "domain": "frontend",
+      "category": "forms-and-services",
+      "description": "Standards stricts pour formulaires, démarches usager et gestion systématique des états loading, empty, error, disabled, success.",
+      "path": "skills/frontend/forms-and-states/SKILL.md",
+      "tags": ["frontend", "forms", "states", "accessibility", "ux"]
+    },
+    {
+      "name": "server-validation",
+      "slug": "backend/server-validation",
+      "title": "Validation Côté Serveur & Rejet Strict",
+      "domain": "backend",
+      "category": "input-and-data",
+      "description": "Validation rigoureuse des entrées côté serveur, non-confiance systématique envers le client et gestion sécurisée des erreurs.",
+      "path": "skills/backend/server-validation/SKILL.md",
+      "tags": ["backend", "api", "validation", "security", "fail-closed"]
+    }
+  ]
+}

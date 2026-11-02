@@ -1,0 +1,68 @@
+{
+  "id": "FE-DESIGN-COLOR-001",
+  "slug": "semantic-color-system",
+  "title": "Système de couleurs sémantiques",
+  "domain": "frontend",
+  "category": "visual-design",
+  "priority": "mandatory",
+  "status": "published",
+  "version": "1.0.0",
+  "applies_to": ["web", "react", "vue", "angular"],
+  "conditions": ["interface utilisateur", "présence d'une direction artistique"],
+  "dependencies": ["FE-A11Y-CONTRAST-001"],
+  "conflicts": [],
+  "rule": "Toutes les couleurs de l'interface sont exprimées via des tokens sémantiques centralisés ; aucun composant ne déclare une valeur de couleur brute.",
+  "rationale": "Un système sémantique rend les états et les thèmes cohérents, permet de vérifier le contraste de façon centralisée et évite la dérive composant par composant.",
+  "requirements": [
+    "Définir les tokens color-text-primary, color-text-secondary, color-surface, color-border, color-action et color-danger.",
+    "Définir les états repos, hover, focus, pressed, disabled, success, warning, danger et information pour chaque rôle utile.",
+    "Nommer les tokens par rôle et non par teinte brute.",
+    "Documenter toute valeur qui sort de l'échelle de tokens avec une justification datée."
+  ],
+  "anti_patterns": [
+    "Couleur hexadécimale écrite directement dans un composant.",
+    "Token nommé blue-500 utilisé comme couleur d'action dans les composants.",
+    "État de focus rendu uniquement par un changement de couleur sans indicateur visible."
+  ],
+  "examples": {
+    "good": [
+      "button { background: var(--color-action); color: var(--color-text-on-action); }",
+      "Un fichier tokens.json unique alimente CSS, Tailwind et les tests de contraste."
+    ],
+    "bad": [
+      "button { background: #2f6fed; }",
+      "Chaque page redéfinit sa propre palette locale."
+    ]
+  },
+  "validation": {
+    "type": "hybrid",
+    "checks": [
+      {
+        "id": "COLOR-TOKENS-DECLARED",
+        "description": "Les tokens sémantiques requis sont déclarés dans un fichier unique.",
+        "method": "automated"
+      },
+      {
+        "id": "COLOR-NO-RAW-VALUES",
+        "description": "Aucune valeur de couleur brute ne subsiste dans les composants.",
+        "method": "automated"
+      },
+      {
+        "id": "COLOR-STATES-REVIEWED",
+        "description": "Les états hover, focus, disabled et danger sont vérifiés visuellement.",
+        "method": "manual"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "title": "DSFR — Couleurs",
+      "url": "https://www.systeme-de-design.gouv.fr/version-courante/fr/fondamentaux/couleurs",
+      "license": "Licence Ouverte 2.0 (Etalab)",
+      "retrieved_at": "2026-11-02"
+    }
+  ],
+  "license": "internal-curated",
+  "owner": "editorial@devstandard.local",
+  "reviewed_at": "2026-11-02"
+}

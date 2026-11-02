@@ -1,0 +1,75 @@
+{
+  "pack_id": "devstandard-pack-public-service",
+  "version": "1.0.0",
+  "generated_at": "2026-11-02T10:00:00Z",
+  "engine_version": "0.1.0",
+  "target": "agent-skills",
+  "domains": ["frontend", "backend"],
+  "standards": [
+    {
+      "id": "FE-DESIGN-COLOR-001",
+      "version": "1.0.0",
+      "title": "Système de couleurs sémantiques",
+      "category": "visual-design",
+      "priority": "mandatory"
+    },
+    {
+      "id": "BE-INPUT-VALIDATION-001",
+      "version": "1.0.0",
+      "title": "Validation serveur systématique des entrées",
+      "category": "input-data",
+      "priority": "critical"
+    }
+  ],
+  "exceptions": [],
+  "validation": {
+    "status": "passed",
+    "summary": {
+      "pass": 4,
+      "fail": 0,
+      "skipped": 0,
+      "not_applicable": 1
+    },
+    "checks": [
+      {
+        "id": "SCHEMA-VALID",
+        "status": "pass",
+        "message": "Tous les fichiers du pack respectent les schémas canoniques."
+      },
+      {
+        "id": "MANDATORY-INCLUDED",
+        "status": "pass",
+        "message": "Aucune règle Critical ou Mandatory applicable n'est absente sans exception."
+      },
+      {
+        "id": "PROVENANCE-COMPLETE",
+        "status": "pass"
+      },
+      {
+        "id": "SECRETS-SCAN",
+        "status": "pass"
+      },
+      {
+        "id": "VISUAL-REGRESSION",
+        "status": "not_applicable",
+        "message": "Aucun rendu visuel dans ce pack."
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "3b1f5c0d8a4e2f6b9c7d1e0a5f4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7a6b"
+    },
+    {
+      "path": "frontend/design-system-quality/SKILL.md",
+      "sha256": "9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0a9f8e"
+    }
+  ],
+  "provenance": {
+    "engine_version": "0.1.0",
+    "parameters_sha256": "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
+    "repository": "https://github.com/exemple/devstandard-pack",
+    "commit": "a1b2c3d"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "Portail de démarches citoyennes",
+  "description": "Portail permettant de rechercher une démarche administrative, de constituer un dossier et de suivre son avancement.",
+  "objectives": [
+    "Trouver une démarche en moins de deux minutes",
+    "Déposer un dossier complet sans assistance",
+    "Suivre l'état d'une demande déposée"
+  ],
+  "sector": "Service public / administratif",
+  "audience": "Usagers non experts, dont une part significative sur mobile et en connexion lente",
+  "app_type": "web-app",
+  "stack": {
+    "frontend_framework": "react",
+    "backend_framework": "laravel",
+    "language": "typescript",
+    "database": "postgresql",
+    "versions": {
+      "react": "19",
+      "laravel": "12",
+      "postgresql": "16"
+    }
+  },
+  "constraints": [
+    "Connexion mobile prioritaire",
+    "Contenu éditorial en français, sans jargon administratif"
+  ],
+  "target_assistant": "agent-skills",
+  "design_direction": "public-service",
+  "design_notes": "Sobriété institutionnelle, hiérarchie nette, aucune identité de marque publique reproduite."
+}

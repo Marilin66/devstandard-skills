@@ -1,0 +1,32 @@
+{
+  "name": "@devstandard/schemas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Contrat canonique des standards, briefs projet et manifestes de packs DevStandard AI",
+  "type": "module",
+  "files": [
+    "*.schema.json",
+    "examples",
+    "bin",
+    "index.mjs"
+  ],
+  "exports": {
+    ".": "./index.mjs",
+    "./standard": "./standard.schema.json",
+    "./project-brief": "./project-brief.schema.json",
+    "./pack-manifest": "./pack-manifest.schema.json",
+    "./platforms": "./platforms.schema.json",
+    "./platforms-registry": "./platforms.json",
+    "./examples/*": "./examples/*"
+  },
+  "bin": {
+    "devstandard-validate": "./bin/validate.mjs"
+  },
+  "scripts": {
+    "test": "node --test test/schemas.test.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  }
+}

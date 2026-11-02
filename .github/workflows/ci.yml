@@ -1,0 +1,111 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  schemas:
+    name: Contrat canonique + web
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+      - run: npm run test:schemas
+      - run: npm run typecheck --workspace @devstandard/web
+      - run: npm run build --workspace @devstandard/web
+
+  api:
+    name: API Laravel
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/api
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_sqlite, sqlite3
+          coverage: none
+
+      - run: composer install --prefer-dist --no-interaction --no-progress
+
+      - run: cp .env.example .env
+      - run: php artisan key:generate
+
+      - run: php artisan test
+
+  api-postgres:
+    name: Migrations sur PostgreSQL 16 + pgvector
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/api
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: devstandard_test
+          POSTGRES_USER: devstandard
+          POSTGRES_PASSWORD: devstandard
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U devstandard -d devstandard_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_DATABASE: devstandard_test
+      DB_USERNAME: devstandard
+      DB_PASSWORD: devstandard
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_pgsql, pgsql
+          coverage: none
+
+      - run: composer install --prefer-dist --no-interaction --no-progress
+
+      - run: cp .env.example .env
+      - run: php artisan key:generate
+
+      - run: php artisan migrate --force
+      - run: php artisan db:seed --force
+
+  ai-engine:
+    name: Moteur Python
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/ai-engine
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: apps/ai-engine/requirements-dev.txt
+
+      - run: pip install -r requirements-dev.txt
+      - run: SCHEMAS_DIR=../../packages/schemas pytest -q

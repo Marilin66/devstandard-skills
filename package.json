@@ -1,0 +1,25 @@
+{
+  "name": "devstandard",
+  "version": "1.0.0",
+  "description": "Standards d'ingénierie Frontend & Backend pour assistants IA (compatible Agent Skills, Cursor, Antigravity, Claude Code)",
+  "type": "module",
+  "bin": {
+    "devstandard": "./bin/devstandard.mjs"
+  },
+  "scripts": {
+    "devstandard": "node ./bin/devstandard.mjs",
+    "list": "node ./bin/devstandard.mjs list",
+    "test": "node --test"
+  },
+  "keywords": [
+    "skills",
+    "agent-skills",
+    "standards",
+    "design-system",
+    "accessibility",
+    "backend-validation",
+    "ai-agents"
+  ],
+  "author": "",
+  "license": "MIT"
+}

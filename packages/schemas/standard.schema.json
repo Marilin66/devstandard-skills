@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://devstandard.ai/schemas/standard.schema.json",
+  "title": "DevStandard — Standard canonique",
+  "description": "Unité de connaissance gouvernée et versionnée (référence : dossier de référence §6). Indépendante du fichier final exporté.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "slug",
+    "title",
+    "domain",
+    "category",
+    "priority",
+    "status",
+    "version",
+    "applies_to",
+    "rule",
+    "rationale",
+    "requirements",
+    "validation",
+    "sources",
+    "license",
+    "reviewed_at"
+  ],
+  "properties": {
+    "id": {
+      "description": "Identifiant stable et immuable, ex. FE-DESIGN-COLOR-001.",
+      "$ref": "#/$defs/standardId"
+    },
+    "slug": {
+      "description": "Identifiant lisible unique utilisé dans les URL.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "minLength": 3,
+      "maxLength": 80
+    },
+    "title": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 120
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["frontend", "backend", "shared"]
+    },
+    "category": {
+      "description": "Famille du référentiel ; contrainte par le domaine (voir allOf).",
+      "type": "string",
+      "enum": [
+        "visual-design",
+        "ux-information-architecture",
+        "forms-services",
+        "components",
+        "responsive",
+        "accessibility",
+        "motion",
+        "performance",
+        "frontend-architecture",
+        "architecture",
+        "api",
+        "identity-access",
+        "input-data",
+        "security",
+        "database",
+        "reliability",
+        "testing",
+        "observability",
+        "operations"
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["critical", "mandatory", "high", "recommended", "optional"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "review", "published", "deprecated", "archived"]
+    },
+    "version": {
+      "$ref": "#/$defs/semver"
+    },
+    "applies_to": {
+      "description": "Technologies auxquelles le standard s'applique réellement (pas de popularité comme critère).",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/technology" }
+    },
+    "conditions": {
+      "description": "Conditions d'applicabilité exprimées en clair, évaluées par le moteur.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3, "maxLength": 200 },
+      "default": []
+    },
+    "dependencies": {
+      "description": "Standards requis en complément ; le moteur refuse les cycles.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/standardId" },
+      "default": []
+    },
+    "conflicts": {
+      "description": "Standards incompatibles ; un conflit obligatoire non résolu bloque la génération.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/standardId" },
+      "default": []
+    },
+    "rule": {
+      "description": "Règle normative, formulée de façon vérifiable.",
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 2000
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 2000
+    },
+    "requirements": {
+      "description": "Exigences concrètes dérivées de la règle.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 5, "maxLength": 400 }
+    },
+    "anti_patterns": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 5, "maxLength": 400 },
+      "default": []
+    },
+    "examples": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["good", "bad"],
+      "properties": {
+        "good": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "default": []
+        },
+        "bad": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "default": []
+        }
+      },
+      "default": { "good": [], "bad": [] }
+    },
+    "validation": {
+      "description": "Contrôles attendus ; leurs identifiants sont utilisés par le rapport de validation.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "checks"],
+      "properties": {
+        "type": { "type": "string", "enum": ["automated", "manual", "hybrid"] },
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "description"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*$",
+                "maxLength": 60
+              },
+              "description": { "type": "string", "minLength": 10, "maxLength": 400 },
+              "method": { "type": "string", "enum": ["automated", "manual"] }
+            }
+          }
+        }
+      }
+    },
+    "sources": {
+      "description": "Provenance obligatoire : aucune règle sans source vérifiable.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "url", "license"],
+        "properties": {
+          "title": { "type": "string", "minLength": 3, "maxLength": 200 },
+          "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+          "license": { "type": "string", "minLength": 3, "maxLength": 120 },
+          "retrieved_at": { "type": "string", "format": "date" }
+        }
+      }
+    },
+    "license": {
+      "description": "Régime de réutilisation du standard lui-même, ex. internal-curated.",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "owner": {
+      "description": "Responsable éditorial du standard.",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "type": "object",
+        "required": ["domain"],
+        "properties": { "domain": { "const": "frontend" } }
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "enum": [
+              "visual-design",
+              "ux-information-architecture",
+              "forms-services",
+              "components",
+              "responsive",
+              "accessibility",
+              "motion",
+              "performance",
+              "frontend-architecture"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "required": ["domain"],
+        "properties": { "domain": { "const": "backend" } }
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "enum": [
+              "architecture",
+              "api",
+              "identity-access",
+              "input-data",
+              "security",
+              "database",
+              "reliability",
+              "testing",
+              "observability",
+              "operations"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "standardId": {
+      "type": "string",
+      "pattern": "^(?:FE|BE|SH)(?:-[A-Z0-9]+)+-[0-9]{3}$"
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+    },
+    "technology": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[.+-][a-z0-9]+)*$",
+      "maxLength": 40
+    }
+  }
+}

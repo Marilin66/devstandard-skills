@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://devstandard.ai/schemas/project-brief.schema.json",
+  "title": "DevStandard — Brief projet normalisé",
+  "description": "Entrée du pipeline de génération (étape 1 : intake). Toute valeur inconnue doit être explicitement 'none' ou 'other', jamais devinée.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "description",
+    "objectives",
+    "sector",
+    "audience",
+    "app_type",
+    "stack",
+    "target_assistant",
+    "design_direction"
+  ],
+  "properties": {
+    "name": { "type": "string", "minLength": 3, "maxLength": 120 },
+    "description": { "type": "string", "minLength": 20, "maxLength": 5000 },
+    "objectives": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 5, "maxLength": 400 }
+    },
+    "sector": { "type": "string", "minLength": 3, "maxLength": 120 },
+    "audience": { "type": "string", "minLength": 3, "maxLength": 300 },
+    "app_type": {
+      "type": "string",
+      "enum": ["website", "web-app", "saas", "ecommerce", "internal-tool", "api"]
+    },
+    "stack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frontend_framework", "backend_framework", "language", "database"],
+      "properties": {
+        "frontend_framework": {
+          "type": "string",
+          "enum": ["react", "vue", "angular", "svelte", "none"]
+        },
+        "backend_framework": {
+          "type": "string",
+          "enum": ["laravel", "symfony", "nestjs", "express", "fastapi", "django", "rails", "none"]
+        },
+        "language": {
+          "type": "string",
+          "enum": ["typescript", "javascript", "php", "python", "go", "java", "csharp"]
+        },
+        "database": {
+          "type": "string",
+          "enum": ["postgresql", "mysql", "sqlite", "mongodb", "none"]
+        },
+        "versions": {
+          "type": "object",
+          "propertyNames": { "type": "string", "minLength": 2, "maxLength": 40 },
+          "additionalProperties": { "type": "string", "minLength": 1, "maxLength": 20 }
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 3, "maxLength": 300 },
+      "default": []
+    },
+    "target_assistant": {
+      "description": "Doit correspondre à un identifiant de packages/schemas/platforms.json.",
+      "type": "string",
+      "enum": ["agent-skills", "opencode", "claude-code", "codex", "cursor", "windsurf", "cline", "antigravity", "chatgpt", "claude-apps", "gemini", "copilot", "meta-ai", "whatsapp-web", "facebook-lite", "universal"]
+    },
+    "design_direction": {
+      "type": "string",
+      "enum": ["public-service", "finance", "social-content", "business-saas", "custom"]
+    },
+    "design_notes": { "type": "string", "maxLength": 2000 }
+  }
+}

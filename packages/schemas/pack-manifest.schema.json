@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://devstandard.ai/schemas/pack-manifest.schema.json",
+  "title": "DevStandard — Manifeste de pack",
+  "description": "Provenance et résultat de validation d'un pack généré (§7 et §9). Un pack ne peut pas être marqué 'passed' si un contrôle a échoué.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pack_id",
+    "version",
+    "generated_at",
+    "engine_version",
+    "target",
+    "domains",
+    "standards",
+    "exceptions",
+    "validation",
+    "files",
+    "provenance"
+  ],
+  "properties": {
+    "pack_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 80
+    },
+    "version": { "$ref": "#/$defs/semver" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "engine_version": { "type": "string", "minLength": 1, "maxLength": 40 },
+    "target": {
+      "description": "Doit correspondre à un identifiant de packages/schemas/platforms.json.",
+      "type": "string",
+      "enum": ["agent-skills", "opencode", "claude-code", "codex", "cursor", "windsurf", "cline", "antigravity", "chatgpt", "claude-apps", "gemini", "copilot", "meta-ai", "whatsapp-web", "facebook-lite", "universal"]
+    },
+    "domains": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "enum": ["frontend", "backend", "shared"] }
+    },
+    "standards": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "version", "title", "category", "priority"],
+        "properties": {
+          "id": { "$ref": "#/$defs/standardId" },
+          "version": { "$ref": "#/$defs/semver" },
+          "title": { "type": "string", "minLength": 8, "maxLength": 120 },
+          "category": { "type": "string", "minLength": 3, "maxLength": 60 },
+          "priority": {
+            "type": "string",
+            "enum": ["critical", "mandatory", "high", "recommended", "optional"]
+          }
+        }
+      }
+    },
+    "exceptions": {
+      "description": "Toute règle Critical/Mandatory écartée doit être justifiée et attribuée.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["standard_id", "reason", "author", "decided_at"],
+        "properties": {
+          "standard_id": { "$ref": "#/$defs/standardId" },
+          "reason": { "type": "string", "minLength": 10, "maxLength": 500 },
+          "author": { "type": "string", "minLength": 2, "maxLength": 120 },
+          "decided_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "summary", "checks"],
+      "properties": {
+        "status": { "type": "string", "enum": ["passed", "failed", "blocked"] },
+        "summary": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["pass", "fail", "skipped", "not_applicable"],
+          "properties": {
+            "pass": { "type": "integer", "minimum": 0 },
+            "fail": { "type": "integer", "minimum": 0 },
+            "skipped": { "type": "integer", "minimum": 0 },
+            "not_applicable": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "status"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*$", "maxLength": 60 },
+              "status": {
+                "type": "string",
+                "enum": ["pass", "fail", "skipped", "not_applicable"]
+              },
+              "message": { "type": "string", "maxLength": 500 }
+            }
+          }
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$",
+            "maxLength": 200
+          },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["engine_version", "parameters_sha256"],
+      "properties": {
+        "engine_version": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "parameters_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "repository": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "commit": { "type": "string", "pattern": "^[a-f0-9]{7,40}$" }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "type": "object",
+        "required": ["validation"],
+        "properties": {
+          "validation": {
+            "type": "object",
+            "required": ["status"],
+            "properties": { "status": { "const": "passed" } }
+          }
+        }
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "validation": {
+            "type": "object",
+            "properties": {
+              "summary": {
+                "type": "object",
+                "properties": {
+                  "fail": { "const": 0 },
+                  "skipped": { "const": 0 }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "standardId": {
+      "type": "string",
+      "pattern": "^(?:FE|BE|SH)(?:-[A-Z0-9]+)+-[0-9]{3}$"
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+    }
+  }
+}
