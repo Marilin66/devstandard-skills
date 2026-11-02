@@ -7,7 +7,9 @@
     "devstandard": "./bin/devstandard.mjs"
   },
   "scripts": {
-    "devstandard": "node ./bin/devstandard.mjs",
+    "start": "node ./bin/serve.mjs",
+    "dev": "node ./bin/serve.mjs",
+    "ui": "node ./bin/serve.mjs",
     "list": "node ./bin/devstandard.mjs list",
     "test": "node --test"
   },
