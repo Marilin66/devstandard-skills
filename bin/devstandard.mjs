@@ -10,7 +10,7 @@ const ROOT_DIR = path.resolve(__dirname, "..");
 
 // URL de base brute GitHub (configurable ou par défaut)
 const GITHUB_RAW_BASE = process.env.DEVSTANDARD_REPO_RAW || 
-  "https://raw.githubusercontent.com/username/devstandard/main";
+  "https://raw.githubusercontent.com/Marilin66/devstandard-skills/main";
 
 async function loadRegistry() {
   // Si le fichier registry.json local existe (ex: en cours de dev dans le dépôt)

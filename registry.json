@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "name": "devstandard",
   "description": "Registre open-source de standards d'ingénierie logicielle et skills pour assistants IA",
-  "repository": "https://github.com/votre-compte/devstandard",
+  "repository": "https://github.com/Marilin66/devstandard-skills",
   "skills": [
     {
       "name": "design-tokens",

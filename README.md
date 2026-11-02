@@ -134,7 +134,7 @@ DevStandard/
    ```
 2. Lier votre dépôt GitHub distant et pousser :
    ```bash
-   git remote add origin https://github.com/<votre-utilisateur>/devstandard.git
+   git remote add origin https://github.com/Marilin66/devstandard-skills.git
    git branch -M main
    git push -u origin main
    ```
