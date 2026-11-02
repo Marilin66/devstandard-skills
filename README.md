@@ -12,7 +12,7 @@ Dans n'importe quel projet applicatif, vous pouvez installer et utiliser les sta
 
 ### 1. Lister les standards disponibles
 ```bash
-npx devstandard list
+npx github:Marilin66/devstandard-skills list
 ```
 
 ### 2. Installer un pack complet ou un standard spécifique
@@ -20,35 +20,35 @@ npx devstandard list
 #### 📦 Par Packs :
 ```bash
 # Installer tous les standards Frontend
-npx devstandard add frontend-pack
+npx github:Marilin66/devstandard-skills add frontend-pack
 
 # Installer tous les standards Backend
-npx devstandard add backend-pack
+npx github:Marilin66/devstandard-skills add backend-pack
 
 # Installer l'intégralité du corpus
-npx devstandard add all
+npx github:Marilin66/devstandard-skills add all
 ```
 
 #### 🎯 Par Standard Individuel :
 ```bash
 # Frontend
-npx devstandard add design-tokens
-npx devstandard add forms-and-states
-npx devstandard add accessible-components
-npx devstandard add accessibility-wcag
-npx devstandard add responsive-layouts
-npx devstandard add frontend-performance
+npx github:Marilin66/devstandard-skills add design-tokens
+npx github:Marilin66/devstandard-skills add forms-and-states
+npx github:Marilin66/devstandard-skills add accessible-components
+npx github:Marilin66/devstandard-skills add accessibility-wcag
+npx github:Marilin66/devstandard-skills add responsive-layouts
+npx github:Marilin66/devstandard-skills add frontend-performance
 
 # Backend
-npx devstandard add server-validation
-npx devstandard add security-iam
-npx devstandard add api-resilience
-npx devstandard add database-integrity
-npx devstandard add security-hardening
-npx devstandard add observability-logging
+npx github:Marilin66/devstandard-skills add server-validation
+npx github:Marilin66/devstandard-skills add security-iam
+npx github:Marilin66/devstandard-skills add api-resilience
+npx github:Marilin66/devstandard-skills add database-integrity
+npx github:Marilin66/devstandard-skills add security-hardening
+npx github:Marilin66/devstandard-skills add observability-logging
 
 # Engineering & Qualité
-npx devstandard add testing-strategy
+npx github:Marilin66/devstandard-skills add testing-strategy
 ```
 
 Les fichiers sont automatiquement placés dans :
@@ -70,29 +70,29 @@ Dès cet instant, votre assistant IA de code (Antigravity, Cursor, Claude Code, 
 
 | Standard | Description | Commande |
 | :--- | :--- | :--- |
-| **`design-tokens`** | Couleurs sémantiques, grille 4px/8px, typographie et contrastes WCAG 2.2 AA. | `npx devstandard add design-tokens` |
-| **`forms-and-states`** | Formulaires fiables, labels visibles, gestion obligatoire des 5 états (`loading`, `error`, `empty`, `default`, `success`). | `npx devstandard add forms-and-states` |
-| **`accessible-components`** | Distinction bouton/lien, modales avec `focus-trap`, menus déroulants et tableaux de données accessibles. | `npx devstandard add accessible-components` |
-| **`accessibility-wcag`** | Normes WCAG 2.2 niveau AA : contrastes stricts, sémantique HTML, navigation 100% clavier, zoom 200%. | `npx devstandard add accessibility-wcag` |
-| **`responsive-layouts`** | Approche mobile-first, cibles tactiles 44x44px, points de rupture et tolérance zéro pour le débordement horizontal. | `npx devstandard add responsive-layouts` |
-| **`frontend-performance`** | Optimisation LCP/CLS/INP, chargement différé d'images, élimination des décalages de rendu. | `npx devstandard add frontend-performance` |
+| **`design-tokens`** | Couleurs sémantiques, grille 4px/8px, typographie et contrastes WCAG 2.2 AA. | `npx github:Marilin66/devstandard-skills add design-tokens` |
+| **`forms-and-states`** | Formulaires fiables, labels visibles, gestion obligatoire des 5 états (`loading`, `error`, `empty`, `default`, `success`). | `npx github:Marilin66/devstandard-skills add forms-and-states` |
+| **`accessible-components`** | Distinction bouton/lien, modales avec `focus-trap`, menus déroulants et tableaux de données accessibles. | `npx github:Marilin66/devstandard-skills add accessible-components` |
+| **`accessibility-wcag`** | Normes WCAG 2.2 niveau AA : contrastes stricts, sémantique HTML, navigation 100% clavier, zoom 200%. | `npx github:Marilin66/devstandard-skills add accessibility-wcag` |
+| **`responsive-layouts`** | Approche mobile-first, cibles tactiles 44x44px, points de rupture et tolérance zéro pour le débordement horizontal. | `npx github:Marilin66/devstandard-skills add responsive-layouts` |
+| **`frontend-performance`** | Optimisation LCP/CLS/INP, chargement différé d'images, élimination des décalages de rendu. | `npx github:Marilin66/devstandard-skills add frontend-performance` |
 
 ### 🔷 Backend
 
 | Standard | Description | Commande |
 | :--- | :--- | :--- |
-| **`server-validation`** | Politique Zero Trust Client, validation stricte par schémas, rejet `fail-closed` sans fuite de secrets. | `npx devstandard add server-validation` |
-| **`security-iam`** | Contrôle d'accès strict côté serveur, prévention des failles BOLA/IDOR, matrice RBAC et isolation étanche des données. | `npx devstandard add security-iam` |
-| **`api-resilience`** | Statuts HTTP sémantiques, pagination bornée, limitation de débit (rate limiting), timeouts et clés d'idempotence. | `npx devstandard add api-resilience` |
-| **`database-integrity`** | Transactions ACID, contraintes de clés étrangères, indexation stratégique, prévention requêtes N+1 et migrations sûres. | `npx devstandard add database-integrity` |
-| **`security-hardening`** | Durcissement OWASP Top 10 : anti-injection SQL, CSRF, SSRF, en-têtes HTTP de sécurité stricts (HSTS, CSP). | `npx devstandard add security-hardening` |
-| **`observability-logging`** | Logs JSON structurés, corrélation universelle Request ID / Trace ID, masquage des PII et sondes de santé `/health`. | `npx devstandard add observability-logging` |
+| **`server-validation`** | Politique Zero Trust Client, validation stricte par schémas, rejet `fail-closed` sans fuite de secrets. | `npx github:Marilin66/devstandard-skills add server-validation` |
+| **`security-iam`** | Contrôle d'accès strict côté serveur, prévention des failles BOLA/IDOR, matrice RBAC et isolation étanche des données. | `npx github:Marilin66/devstandard-skills add security-iam` |
+| **`api-resilience`** | Statuts HTTP sémantiques, pagination bornée, limitation de débit (rate limiting), timeouts et clés d'idempotence. | `npx github:Marilin66/devstandard-skills add api-resilience` |
+| **`database-integrity`** | Transactions ACID, contraintes de clés étrangères, indexation stratégique, prévention requêtes N+1 et migrations sûres. | `npx github:Marilin66/devstandard-skills add database-integrity` |
+| **`security-hardening`** | Durcissement OWASP Top 10 : anti-injection SQL, CSRF, SSRF, en-têtes HTTP de sécurité stricts (HSTS, CSP). | `npx github:Marilin66/devstandard-skills add security-hardening` |
+| **`observability-logging`** | Logs JSON structurés, corrélation universelle Request ID / Trace ID, masquage des PII et sondes de santé `/health`. | `npx github:Marilin66/devstandard-skills add observability-logging` |
 
 ### 🔷 Engineering & Méthodes
 
 | Standard | Description | Commande |
 | :--- | :--- | :--- |
-| **`testing-strategy`** | Pyramide de tests, tests systématiques des cas négatifs et refus d'accès, isolation totale des tests et CI reproductible. | `npx devstandard add testing-strategy` |
+| **`testing-strategy`** | Pyramide de tests, tests systématiques des cas négatifs et refus d'accès, isolation totale des tests et CI reproductible. | `npx github:Marilin66/devstandard-skills add testing-strategy` |
 
 ---
 
