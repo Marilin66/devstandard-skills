@@ -378,17 +378,229 @@ Unité de base : **`4px` / Grille de `8px`**.
 
 ---
 
-## 8. Checklist de Validation du Développeur / Agent
+## 8. Architecture de Page Institutionnelle — Patterns Obligatoires
 
+Cette section définit la structure HTML et les composants requis pour toute interface institutionnelle (portail, service public, outil professionnel). Ces patterns sont extraits directement de GOV.UK, DSFR, USWDS, ANIP Bénin, service-public.fr et service-public.bj.
+
+### 8.1 Structure de Page Obligatoire (dans l'ordre du DOM)
+
+```
+1. Skip Link          → Lien d'évitement WCAG, premier élément focusable
+2. Identity Bar       → Barre d'identité officielle (la plus haute, fond primaire foncé)
+3. Site Header        → En-tête principal sticky (logo, nav, CTA)
+4. [Phase Banner]     → Optionnel : bandeau Alpha/Bêta si service en cours de déploiement
+5. Main Content       → <main id="main-content"> englobant tout le contenu
+   ├── Hero / Banner  → Fond primaire plein (pas de dégradé), titre + CTA
+   ├── Stats Bar      → Chiffres clés en grille avec bordures
+   ├── Section(s)     → Fond alternant blanc / gris clair, section-eyebrow + titre + grille
+   └── FAQ            → Accordéon avec aria-expanded / aria-controls
+6. Site Footer        → Pied de page multi-colonnes fond sombre + barre copyright
+```
+
+### 8.2 Barre d'Identité Officielle (`identity-bar`)
+
+**Pattern :** GOV.UK (barre noire) / DSFR (bloc Marianne) / ANIP (barre utilitaire supérieure)
+
+```html
+<!-- OBLIGATOIRE sur tout site institutionnel -->
+<div class="identity-bar" role="banner">
+  <!-- Fond : couleur primaire foncée (-dark) ou noir -->
+  <!-- Hauteur : 34-40px -->
+  <!-- Contenu : logo/icône + nom du service + séparateur + tagline -->
+  <!-- Droite : liens utiles (GitHub, Aide, Langue) -->
+  <!-- Barre de couleur accent (2px) en bas : couleur d'accentuation (rouge, jaune, vert) -->
+</div>
+```
+
+**Règles :**
+- Fond : variante foncée de la couleur primaire (ex : `#002060` pour un site en bleu `#003189`)
+- Accent bottom border : couleur d'urgence/accentuation (rouge `#d63626`, jaune `#ffd166`, vert)
+- Texte : blanc ou très clair, police 11-13px
+- Liens utiles à droite : discrets, gris-bleu clair
+
+### 8.3 Header Institutionnel Sticky
+
+**Pattern :** service-public.fr / ANIP / GOV.UK service header
+
+```html
+<header class="site-header" style="
+  background: #fff;
+  border-bottom: 1px solid #dde1e9;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+">
+  <!-- Hauteur : 60-68px -->
+  <!-- Logo (icône 38-42px fond primaire, coins 4-6px) + Nom du service + Sous-titre -->
+  <!-- Navigation : liens simples, couleur texte, hover background clair -->
+  <!-- Indicateur actif : 2px bottom border couleur primaire -->
+  <!-- Actions : bouton principal plein (couleur primaire, coins 3-4px) -->
+</header>
+```
+
+**Règles nav :**
+- Liens en `font-size: 13-14px`, `font-weight: 500-600`
+- Hover : `background: var(--surface-light)` léger, jamais de soulignement seul
+- Lien actif : `border-bottom: 2px solid var(--color-primary)` en bas du lien
+- Sur mobile : hamburger, jamais de nav cachée sans bouton visible
+
+### 8.4 Hero — Bannière Institutionnelle Pleine Largeur
+
+**Pattern :** DSFR hero / service-public.bj / USWDS hero
+
+```css
+/* CORRECT : fond solide institutionnel */
+.hero {
+  background: var(--color-primary);   /* Bleu solide — JAMAIS de dégradé */
+  color: #fff;
+  padding: 48px 0 56px;
+}
+
+/* Motif de fond autorisé : grille géométrique TRÈS subtile */
+.hero::before {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* INTERDIT : */
+/* background: linear-gradient(135deg, #6a0dad, #1a1a2e)  ← violet IA */
+/* background: linear-gradient(to right, #ff00ff, #00ffff) ← néon */
+```
+
+**Structure hero :**
+1. Badge de statut (version, label) — fond blanc 12% opacité, coins 3px, uppercase 11px
+2. Titre H1 — `font-size: clamp(26px, 4vw, 38px)`, `font-weight: 800`, blanc
+3. Description — blanc 82% opacité, `font-size: 15-16px`, `line-height: 1.65`
+4. Bloc commande / CTA — fond noir 25% opacité, bouton blanc fond
+
+### 8.5 Barre de Statistiques Institutionnelle
+
+**Pattern :** portails d'État, pages d'accueil GOV.UK / USWDS
+
+```html
+<!-- Grille de chiffres clés avec séparateurs verticaux -->
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); border-left: 1px solid #dde1e9;">
+  <!-- Chaque cellule : border-right + padding 20-24px -->
+  <!-- Icône 40x40px (fond primary-light, icône primary) + valeur (26-30px, font-weight: 800) + label (12px, muted) -->
+</div>
+```
+
+### 8.6 Sections de Contenu — Règles d'Alternance
+
+```
+Section impaire → background: #ffffff (blanc)
+Section paire   → background: #f5f7fa (gris clair institutionnel)
+Séparation      → border-top: 1px solid #dde1e9  (jamais de gap vide sans bordure)
+Padding         → 48-64px haut et bas
+```
+
+**En-tête de section institutionnel :**
+```html
+<!-- Pattern DSFR / service-public.fr : eyebrow + titre -->
+<div class="section-eyebrow" style="
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--color-primary);
+  border-left: 3px solid var(--color-primary);  /* accent vertical */
+  padding-left: 10px; margin-bottom: 10px;
+">Libellé du domaine</div>
+<h2 style="font-size: clamp(20px, 3vw, 26px); font-weight: 800;">Titre de section</h2>
+```
+
+### 8.7 Grilles de Cartes — Style Institutionnel
+
+**Pattern :** grille avec `gap: 1px; background: bordure` (style tableau, pas cards flottantes)
+
+```css
+/* STYLE INSTITUTIONNEL : grille avec jointives et bordures partagées */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #dde1e9;  /* La couleur de bordure devient le fond de la grille */
+  border: 1px solid #dde1e9;
+  border-radius: 2px;   /* Coins quasi-carrés, pas 12-16px */
+  overflow: hidden;
+}
+.card {
+  background: #ffffff;
+  padding: 22-28px;
+}
+/* INTERDIT : box-shadow excessif, coins > 6px, effets hover glow */
+```
+
+**Structure d'une carte institutionnelle :**
+1. Badge domaine (uppercase 10-11px, fond coloré très clair, coins 2px)
+2. Titre (14-16px, font-weight: 700, text-title)
+3. Description (13-14px, text-muted, line-clamp: 3)
+4. Tags (10-11px, fond gris très clair, bordure fine, coins 2px)
+5. Footer carte : séparé par `border-top: 1px solid`, CTA gauche + bouton droit
+
+### 8.8 Footer Multi-Colonnes Institutionnel — Structure Obligatoire
+
+**Pattern :** ANIP / service-public.bj / DSFR footer / GOV.UK footer
+
+```
+Footer main (fond sombre — navy #0d1b3e ou variante primaire foncée) :
+├── Colonne 1 (2fr) : Logo + description + badge open source
+├── Colonne 2 (1fr) : Navigation (liens internes)
+├── Colonne 3 (1fr) : Ressources (liens externes — GitHub, docs)
+└── Colonne 4 (1fr) : Mentions légales (OBLIGATOIRES)
+    ├── Accessibilité : [non/partiellement/totalement] conforme WCAG
+    ├── Mentions légales
+    ├── Politique de confidentialité
+    └── Gestion des cookies
+
+Footer bottom (même fond, border-top fine) :
+├── Gauche : © AAAA Nom du service — [Licence]
+└── Droite : Liens légaux rapides (Accessibilité, Mentions légales, Confidentialité)
+```
+
+**Règles typographiques footer :**
+- Titres colonnes : `font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em`
+- Séparateur sous titre : `border-bottom: 1px solid` (couleur footer-border)
+- Liens : `font-size: 13px`, gris-bleu clair, hover blanc
+- Copyright : `font-size: 12px`, gris foncé (#4a5e8a)
+
+---
+
+## 9. Checklist de Validation du Développeur / Agent
+
+### Design & Couleurs
 - [ ] L'interface ne présente aucun fond violet néon, lueur cyberpunk ou cliché de style IA.
-- [ ] Le fond principal est blanc (`#FFFFFF`) ou très clair (`#F8FAFC`).
+- [ ] Le fond principal est blanc (`#FFFFFF`) ou très clair (`#F5F7FA`).
 - [ ] La couleur principale est choisie selon le secteur d'activité identifié (Section 3).
 - [ ] La palette est multi-tons : fond, texte primaire, texte secondaire, primaire, secondaire, accent, bordure.
+- [ ] Le Hero utilise un fond solide (couleur primaire), jamais un dégradé non justifié.
+
+### Typographie
 - [ ] La paire typographique est choisie dans la matrice institutionnelle (Section 2.1).
 - [ ] Les polices sont chargées avec `font-display: swap`.
-- [ ] Aucune icône n'est un sticker 3D ou un emoji ; seules des icônes vectorielles SVG fines et monochromes sont utilisées.
+- [ ] Maximum 2 familles de polices chargées.
+
+### Icônes
+- [ ] Aucune icône n'est un sticker 3D ou un emoji ; seules des icônes vectorielles SVG fines (outline 1.5-2px) sont utilisées.
+
+### Structure institutionnelle
+- [ ] La page contient une **barre d'identité officielle** en tout premier (identity bar).
+- [ ] Le header est sticky avec logo gauche, navigation centrale, CTA droite.
+- [ ] Le Hero/banner est pleine largeur, fond solide institutionnel.
+- [ ] Les cartes utilisent la grille jointive (`gap: 1px`, fond grille = couleur bordure).
+- [ ] Les coins des cartes sont quasi-carrés (border-radius 2-4px max).
+- [ ] Le footer est multi-colonnes (min. 3 colonnes) sur fond sombre.
+- [ ] Le footer contient les mentions légales obligatoires : accessibilité, confidentialité, mentions légales.
+- [ ] Une barre de copyright est présente en bas du footer.
+- [ ] Les sections alternent fond blanc et fond gris clair avec `border-top: 1px solid`.
+
+### Accessibilité
+- [ ] Un lien d'évitement (`skip link`) est le premier élément focusable du DOM.
 - [ ] Les ratios de contraste respectent WCAG 2.2 AA (4.5:1 texte courant, 3:1 éléments UI).
+- [ ] Tous les éléments interactifs ont `focus-visible` visible (outline 3px, couleur contrastée).
+- [ ] Les accordéons FAQ utilisent `aria-expanded` et `aria-controls`.
+- [ ] Les modales utilisent `role="dialog"`, `aria-modal="true"`, `aria-labelledby`.
+- [ ] Les grilles de cartes utilisent `role="list"` et `aria-live="polite"`.
+
+### Mobile
 - [ ] Sur mobile, les éléments cliquables mesurent au moins 44×44pt (iOS) ou 48×48dp (Android).
 - [ ] Les zones de saisie sur mobile ont une taille de texte d'au moins 16px.
-- [ ] Les encoches et zones sûres (*Safe Areas*) sont respectées.
-- [ ] `focus-visible:ring-2` avec offset est présent sur tous les éléments interactifs.
+- [ ] Les encoches et zones sûres (*Safe Areas*) sont respectées (`safe-area-inset-*`).
