@@ -1,6 +1,6 @@
 ---
 name: frontend-design-tokens
-description: "Règles strictes de design sans cliché IA : fond blanc classique, suppression des stickers au profit d'icônes vectorielles SVG sobres, matrice typographique institutionnelle, palettes sectorielles multi-tons (État, Finance, Santé, Data, Tech), contrastes WCAG 2.2 AA et adaptation native aux applications web et mobiles (iOS/Android)."
+description: "Entretien initial obligatoire pour collecter la palette, le style et le secteur avant toute génération UI. Règles strictes de design sans cliché IA : fond blanc classique, icônes SVG sobres, matrice typographique institutionnelle, palettes sectorielles multi-tons (État, Finance, Santé, Data, Tech), contrastes WCAG 2.2 AA, adaptation mobile native (iOS/Android)."
 ---
 
 # Frontend Design Tokens & Human-Crafted Visual System Standard
@@ -8,6 +8,140 @@ description: "Règles strictes de design sans cliché IA : fond blanc classique,
 Ce skill définit le système de design visuel obligatoire pour toutes les interfaces utilisateur (Web et Applications Mobiles). Il s'inspire directement des systèmes de design de confiance et de haute fiabilité : les portails institutionnels (ANIP Bénin, RAVIP, e-services.anip.bj, service-public.bj, DSFR France, GOV.UK, USWDS, Canada.ca, gov.sg, ONU, Banque Mondiale, ONS) et les interfaces modernes épurées (ChatGPT Web, Stripe, Linear).
 
 > **Règle d'or « Zéro Cliché IA » :** Une interface générée ne doit **JAMAIS** ressembler à une maquette d'IA générique (pas de dégradés néon violets/magenta, pas de fonds sombres futuristes clichés, pas d'emojis ou stickers décoratifs infantilisants). L'interface doit être sobre, épurée, crédible, humaine et digne d'une mise en production immédiate.
+
+---
+
+## 0. Protocole d'Entretien Initial — OBLIGATOIRE avant toute génération UI
+
+> **RÈGLE ABSOLUE :** L'IA **ne doit JAMAIS commencer à générer du code ou des maquettes** sans avoir d'abord posé ces questions à l'utilisateur et reçu ses réponses. Si certaines informations sont déjà présentes dans le brief, les confirmer plutôt que de les redemander.
+
+### 0.1 Script d'Entretien — Questions à poser dans cet ordre
+
+Quand l'utilisateur demande de créer ou de refaire une interface, l'IA répond d'abord par ce bloc de questions (adapter le ton au contexte) :
+
+---
+
+**Bonjour ! Avant de commencer, j'ai quelques questions rapides pour m'assurer que le design correspond exactement à vos besoins et à votre identité visuelle.**
+
+**1. Secteur d'activité / Type de projet**
+> Quel est le secteur de votre projet ? (Une seule réponse ou préciser)
+> - 🏛️ Services publics / Administration (État, mairie, portail citoyen)
+> - 🏦 Finance / Banque / Assurance / Légal
+> - 🏥 Santé / Social / Médical / Humanitaire
+> - 📊 Données / Statistiques / Recherche / Science
+> - 💻 Technologie / SaaS / Productivité / IA
+> - 🛒 E-commerce / Marketplace
+> - 📰 Média / Presse / Editorial
+> - 🎓 Éducation / Formation
+> - Autre : _________
+
+**2. Palette de couleurs**
+> Avez-vous déjà une charte graphique ou des couleurs imposées ?
+> - **Oui** → Merci de me donner vos couleurs (codes hex, noms, ou une capture d'écran)
+> - **Non, palette libre** → Je vais choisir une palette institutionnelle adaptée à votre secteur (voir question 1)
+> - **Partiellement** → Donnez-moi les couleurs que vous avez, je complète le reste
+
+**3. Style de design souhaité**
+> Quel style visuel souhaitez-vous ?
+> - 🏛️ **Institutionnel sobre** — Portail d'État, service public, autoritaire et sobre (GOV.UK, ANIP, DSFR)
+> - 🏢 **Corporate professionnel** — Entreprise, finance, confiance et sérieux (Banque Mondiale, KPMG)
+> - 🚀 **Tech moderne épuré** — SaaS, outil développeur, propre et efficace (Stripe, Linear, Vercel)
+> - 📋 **Data / Dashboard** — Interface dense, tableaux, graphiques, scientifique (ONS, INSEE)
+> - 🌐 **Portail grand public** — Service citoyen, accessible à tous, simple et clair (service-public.fr)
+> - Autre / Mélange : _________
+
+**4. Typographie**
+> Avez-vous une police imposée ou une préférence ?
+> - **Oui** → Laquelle ? (Google Fonts, Adobe Fonts, police propriétaire ?)
+> - **Non** → Je choisis la paire typographique adaptée à votre secteur dans la matrice institutionnelle
+> - **Référence** → Un site dont vous aimez la typographie : _________
+
+**5. Plateforme(s) cible(s)**
+> Sur quelles plateformes l'interface sera-t-elle utilisée ?
+> - 🌐 Web uniquement (desktop + responsive mobile)
+> - 📱 Application mobile native (React Native / Flutter / Swift / Kotlin)
+> - 🌐📱 Les deux (web + mobile natif)
+> - 🖥️ Dashboard / Back-office (usage desktop prioritaire)
+
+**6. Contexte d'utilisation**
+> À qui s'adresse cette interface ?
+> - Grand public / Citoyens (toutes tranches d'âge)
+> - Professionnels / Agents (usage métier quotidien)
+> - Développeurs / Techniciens (outil interne ou B2B)
+> - Enfants / Jeunes (gamification possible)
+
+**7. Mode sombre**
+> Souhaitez-vous un mode sombre (dark mode) ?
+> - Non, thème clair uniquement *(recommandé pour les interfaces institutionnelles)*
+> - Oui, les deux (thème clair + sombre)
+> - Oui, dark mode uniquement
+
+---
+
+### 0.2 Règles de Traitement des Réponses
+
+Une fois les réponses reçues, l'IA applique l'algorithme suivant **avant** de générer le moindre code :
+
+```
+SI palette fournie par l'utilisateur :
+  → Utiliser exactement ses couleurs comme --color-primary
+  → Dériver les variantes (dark = primary assombri de 15%, light = primary à 8% opacité)
+  → Compléter les neutres et feedbacks selon le standard de la Section 4
+
+SINON (palette libre) :
+  → Identifier le secteur depuis la réponse Q1
+  → Appliquer la palette sectorielle complète de la Section 3 (jamais violet/purple par défaut)
+  → Documenter le choix dans un commentaire CSS
+
+SI typographie fournie :
+  → Utiliser la police indiquée, avec font-display: swap obligatoire
+  → Si non disponible sur Google Fonts, utiliser le fallback stack de la Section 2.2
+
+SINON (typo libre) :
+  → Sélectionner la paire dans la matrice institutionnelle Section 2.3 selon le secteur
+
+SI style "Institutionnel sobre" OU secteur "Services publics" :
+  → Appliquer OBLIGATOIREMENT la structure de page de la Section 8
+    (identity-bar + header sticky + hero fond solide + footer multi-colonnes)
+  → Coins quasi-carrés (border-radius: 2-4px)
+  → Grille jointive (gap: 1px, fond = couleur bordure)
+
+SI style "Tech moderne" OU secteur "Technologie/SaaS" :
+  → border-radius: 6-8px autorisé
+  → ombres douces autorisées (shadow-sm / shadow-md)
+  → Inter comme typo recommandée
+
+SI mobile natif dans les plateformes :
+  → Appliquer les règles Section 5 (touch targets 44pt iOS / 48dp Android, safe areas)
+  → Bottom Navigation Bar pour la navigation principale
+  → Bottom Sheets pour les menus contextuels
+```
+
+### 0.3 Récapitulatif à Soumettre avant de Coder
+
+Avant de générer le code, l'IA soumet un récapitulatif de ses choix pour validation :
+
+```
+✅ Récapitulatif de votre charte visuelle DevStandard
+
+📌 Secteur identifié    : [secteur]
+🎨 Palette choisie      : [nom palette ou "fournie par l'utilisateur"]
+   • Couleur primaire   : #XXXXXX — [rôle]
+   • Couleur secondaire : #XXXXXX — [rôle]
+   • Accent / CTA       : #XXXXXX — [rôle]
+   • Fond principal     : #XXXXXX
+   • Texte principal    : #XXXXXX (contraste X:1 sur fond)
+🔤 Typographie          : [Police titre] (titres) + [Police corps] (corps)
+🖥️ Style de design      : [style choisi]
+📱 Plateformes          : [plateformes]
+🌙 Mode sombre          : [oui/non]
+
+Confirmez-vous ces choix avant que je génère le code ? (Oui / Non / Modifier X)
+```
+
+> **Si l'utilisateur répond "Oui"** → l'IA génère le code en appliquant exactement ces tokens.
+> **Si l'utilisateur dit "Modifier X"** → l'IA ajuste uniquement le point mentionné et resoumet.
+> **Si l'utilisateur dit "Vas-y directement"** → l'IA génère avec les choix retenus, en les documentant dans des commentaires CSS.
 
 ---
 
